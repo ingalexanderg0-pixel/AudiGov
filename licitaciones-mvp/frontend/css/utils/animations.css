@@ -1,0 +1,296 @@
+/* ============================================
+   ANIMATIONS.CSS — Transiciones de página y Skeleton Loading
+   Sistema de animaciones para LICITAPP
+   ============================================ */
+
+/* =============================================
+   1. PAGE TRANSITION — Entrada de página
+   ============================================= */
+
+/* Animación de ENTRADA: la nueva página entra desde la derecha */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animación de SALIDA: la página actual sale hacia la izquierda */
+@keyframes page-exit {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+}
+
+/* La animación de entrada se aplica automáticamente al body */
+body {
+  animation: page-enter 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Clase que activa la salida (inyectada por JS antes de navegar) */
+body.page-exit {
+  animation: page-exit 0.25s ease-in forwards;
+  pointer-events: none; /* Bloquear clics durante salida */
+}
+
+/* =============================================
+   2. FADE-IN para elementos dentro de la página
+   ============================================= */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: fade-in-up 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Variantes de delay para staggered animations (entrada escalonada) */
+.animate-in-d1 { animation: fade-in-up 0.35s 0.05s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-in-d2 { animation: fade-in-up 0.35s 0.10s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-in-d3 { animation: fade-in-up 0.35s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-in-d4 { animation: fade-in-up 0.35s 0.20s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* =============================================
+   3. SKELETON LOADING — Shimmer animado
+   ============================================= */
+
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+/* Base de todos los skeletons */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-border)    25%,
+    var(--color-surface-hover) 50%,
+    var(--color-border)    75%
+  );
+  background-size: 600px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+  display: block;
+}
+
+/* Variantes de forma */
+.skeleton-text {
+  height: 14px;
+  width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-text-sm {
+  height: 11px;
+  width: 65%;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-title {
+  height: 22px;
+  width: 45%;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-badge {
+  height: 22px;
+  width: 70px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+}
+
+.skeleton-avatar {
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.skeleton-btn {
+  height: 36px;
+  width: 100px;
+  border-radius: var(--radius-md);
+}
+
+/* =============================================
+   4. SKELETON: Tarjeta de stat (dashboard)
+   ============================================= */
+
+.skeleton-stat-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.skeleton-stat-card .skeleton-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.skeleton-stat-card .skeleton-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+/* =============================================
+   5. SKELETON: Fila de tabla (contratos)
+   ============================================= */
+
+.skeleton-table-row {
+  display: grid;
+  /* 6 columnas igual que la tabla real */
+  grid-template-columns: 2fr 1.5fr 1fr 1fr 80px 80px;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+  align-items: center;
+}
+
+/* =============================================
+   6. SKELETON: Tarjeta de contrato (dashboard grid)
+   ============================================= */
+
+.skeleton-contract-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+/* =============================================
+   7. SKELETON: Detalle de contrato
+   ============================================= */
+
+.skeleton-detail-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
+}
+
+.skeleton-meta-row {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* =============================================
+   8. Micro-interacciones en tarjetas y filas
+   ============================================= */
+
+/* Hover lift en stat-cards */
+.stat-card {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Hover en filas de tabla */
+.contracts-table tbody tr {
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+.contracts-table tbody tr:hover {
+  transform: translateX(2px);
+}
+
+/* Hover en tarjetas de contrato (dashboard grid) */
+.contract-card {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.contract-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* =============================================
+   9. Botón con ripple effect
+   ============================================= */
+
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.btn:active::after {
+  opacity: 1;
+}
+
+/* =============================================
+   10. Navbar link hover mejorado
+   ============================================= */
+
+.nav-link {
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-base);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Suprimir animación de entrada para usuarios con preferencia de reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  body, .animate-in, .animate-in-d1, .animate-in-d2, .animate-in-d3, .animate-in-d4 {
+    animation: none !important;
+  }
+  .stat-card:hover,
+  .contract-card:hover {
+    transform: none;
+  }
+}

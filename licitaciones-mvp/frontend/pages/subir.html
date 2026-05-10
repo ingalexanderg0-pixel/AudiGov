@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subir Contrato — LICITAPP</title>
+  <meta name="description" content="Panel de administración para subir nuevos contratos públicos con hash SHA-256.">
+  <link rel="stylesheet" href="../css/main.css">
+  <!-- ⚡ Anti-FOUC -->
+  <script>if(localStorage.getItem('licitapp_role')==='admin')document.documentElement.classList.add('is-admin');</script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="admin-layout">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" role="navigation" aria-label="Navegación principal">
+    <div class="navbar-inner">
+      <a href="./dashboard.html" class="navbar-brand">
+        <div class="navbar-brand-logo" aria-hidden="true">🏛️</div>
+        <span class="navbar-brand-name">LICITAPP</span>
+      </a>
+      <div class="navbar-nav">
+        <a href="./dashboard.html" class="nav-link">Dashboard</a>
+        <a href="./contratos.html" class="nav-link">Contratos</a>
+        <a href="./admin.html" class="nav-link">Admin</a>
+      </div>
+      <div class="navbar-actions">
+        <span class="role-badge role-admin" style="display:inline-flex;">Admin</span>
+        <div id="user-avatar" class="user-avatar">?</div>
+        <button id="btn-logout" class="btn btn-ghost btn-sm">Salir</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== CONTENIDO ===== -->
+  <main class="admin-main" id="main-content">
+
+    <!-- Acceso denegado (oculto por defecto, se muestra si no es admin) -->
+    <div id="access-denied" class="access-denied" style="display:none;">
+      <div class="access-denied-icon">🚫</div>
+      <h2>Acceso Denegado</h2>
+      <p>Esta sección es exclusiva para administradores.</p>
+      <a href="./dashboard.html" class="btn btn-primary" style="margin-top: var(--spacing-lg);">
+        ← Volver al Dashboard
+      </a>
+    </div>
+
+    <!-- Panel Admin -->
+    <div id="admin-content" style="display:none;">
+
+      <!-- Page Header -->
+      <div class="page-header" style="margin-bottom: var(--spacing-2xl);">
+        <div>
+          <h1 class="page-title">Subir Nuevo Contrato</h1>
+          <p class="page-subtitle">Registra un contrato público con hash de integridad SHA-256.</p>
+        </div>
+        <a href="./contratos.html" class="btn btn-ghost btn-sm">← Ver todos los contratos</a>
+      </div>
+
+      <!-- Alerta global -->
+      <div id="alert-container" class="alert" role="alert" aria-live="polite" style="display:none; margin-bottom: var(--spacing-xl);">
+        <span id="alert-icon">⚠️</span>
+        <span id="alert-message"></span>
+      </div>
+
+      <!-- ===== FORMULARIO ===== -->
+      <form id="upload-form" novalidate>
+
+        <!-- Sección 1: Información del Contrato -->
+        <div class="upload-section">
+          <h2 class="upload-title">📋 Información del Contrato</h2>
+
+          <div class="form-grid">
+
+            <!-- Título -->
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="titulo" class="form-label required">Título del Contrato</label>
+              <input type="text" id="titulo" name="titulo" class="form-input"
+                placeholder="Ej: Construcción de Puente Vehicular - Zona Norte"
+                required maxlength="255">
+            </div>
+
+            <!-- Entidad -->
+            <div class="form-group">
+              <label for="entidad" class="form-label required">Entidad Contratante</label>
+              <input type="text" id="entidad" name="entidad" class="form-input"
+                placeholder="Ej: Secretaría de Obras Públicas" required maxlength="255">
+            </div>
+
+            <!-- Estado -->
+            <div class="form-group">
+              <label for="estado" class="form-label required">Estado del Contrato</label>
+              <select id="estado" name="estado" class="form-select" required>
+                <option value="">Seleccionar estado...</option>
+                <option value="activo">✅ Activo</option>
+                <option value="cerrado">📁 Cerrado</option>
+                <option value="cancelado">❌ Cancelado</option>
+              </select>
+            </div>
+
+            <!-- Monto -->
+            <div class="form-group">
+              <label for="monto" class="form-label required">Monto (COP)</label>
+              <input type="text" id="monto" name="monto" class="form-input"
+                placeholder="1.500.000" inputmode="numeric" required>
+              <span class="form-hint">El monto se formateará automáticamente al escribir.</span>
+            </div>
+
+            <!-- Número de Licitación -->
+            <div class="form-group">
+              <label for="numero_licitacion" class="form-label">N° de Licitación</label>
+              <input type="text" id="numero_licitacion" name="numero_licitacion" class="form-input"
+                placeholder="Ej: LIC-2024-001">
+            </div>
+
+            <!-- Fecha Inicio -->
+            <div class="form-group">
+              <label for="fecha_inicio" class="form-label required">Fecha de Inicio</label>
+              <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-input" required>
+            </div>
+
+            <!-- Fecha Fin -->
+            <div class="form-group">
+              <label for="fecha_fin" class="form-label required">Fecha de Fin</label>
+              <input type="date" id="fecha_fin" name="fecha_fin" class="form-input" required>
+            </div>
+
+            <!-- Descripción -->
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="descripcion" class="form-label">Descripción</label>
+              <textarea id="descripcion" name="descripcion" class="form-textarea"
+                placeholder="Describe el alcance, objetivos y detalles relevantes del contrato..."
+                rows="4" maxlength="2000"></textarea>
+              <span class="form-hint">Máximo 2000 caracteres. Campo opcional pero recomendado.</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Sección 2: Documento PDF -->
+        <div class="upload-section">
+          <h2 class="upload-title">📄 Documento PDF</h2>
+          <p class="text-sm text-light" style="margin-bottom: var(--spacing-lg);">
+            Sube el archivo PDF del contrato. Se generará automáticamente un hash SHA-256
+            para garantizar la integridad del documento.
+          </p>
+
+          <!-- Zona drag & drop -->
+          <div class="dropzone" id="dropzone" role="button" tabindex="0"
+            aria-label="Zona para subir archivo PDF">
+            <div class="dropzone-icon" aria-hidden="true">📂</div>
+            <p class="dropzone-title">Arrastra tu PDF aquí</p>
+            <p class="dropzone-subtitle">o haz clic para seleccionar el archivo</p>
+            <input type="file" id="archivo-pdf" name="archivo-pdf"
+              accept="application/pdf" style="display:none;" aria-label="Seleccionar archivo PDF">
+          </div>
+
+          <!-- Info del archivo seleccionado -->
+          <div id="file-info" style="display:none; margin-top: var(--spacing-md);">
+            <div class="alert alert-success">
+              <span>📄</span>
+              <div>
+                <strong id="file-name">—</strong>
+                <span id="file-size" class="text-sm" style="margin-left: var(--spacing-sm); color: inherit; opacity: 0.8;"></span>
+              </div>
+              <button type="button" id="btn-remove-file" class="btn btn-ghost btn-sm"
+                style="margin-left: auto;" aria-label="Eliminar archivo">✕</button>
+            </div>
+          </div>
+
+          <!-- Preview del Hash generado -->
+          <div id="hash-preview" class="hash-preview" aria-live="polite">
+            <div style="font-size: var(--font-size-xs); color: #10b981; margin-bottom: 4px;">
+              🔐 Hash SHA-256 generado:
+            </div>
+            <div id="hash-value">—</div>
+          </div>
+        </div>
+
+        <!-- Sección 3: Progreso de subida -->
+        <div id="progress-section" style="display:none; margin-bottom: var(--spacing-xl);">
+          <div style="display:flex; justify-content:space-between; margin-bottom: var(--spacing-xs);">
+            <span class="text-sm font-medium" id="progress-label">Subiendo contrato...</span>
+            <span class="text-sm text-muted" id="progress-percent">0%</span>
+          </div>
+          <div style="width:100%; height:8px; background: var(--color-border); border-radius: var(--radius-full); overflow:hidden;">
+            <div id="progress-bar"
+              style="height:100%; width:0%; background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light)); border-radius: var(--radius-full); transition: width 0.3s ease;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div style="display:flex; gap: var(--spacing-md); flex-wrap:wrap;">
+          <button type="submit" id="btn-submit" class="btn btn-primary btn-lg">
+            🚀 Publicar Contrato
+          </button>
+          <a href="./contratos.html" class="btn btn-secondary btn-lg" id="btn-cancel">
+            Cancelar
+          </a>
+        </div>
+
+      </form>
+
+    </div>
+  </main>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script type="module">
+    import { requireAdmin, logout }    from '../js/auth.js';
+    import { crearContrato }           from '../js/contratos.js';
+    import { generarHashArchivo, formatearHash } from '../js/hash.js';
+
+    // ====================================================
+    // INICIALIZACIÓN
+    // ====================================================
+
+    let archivoSeleccionado = null;
+    let hashGenerado        = null;
+
+    async function init() {
+      try {
+        const { user, profile } = await requireAdmin();
+
+        document.getElementById('user-avatar').textContent =
+          (profile?.nombre || user.email).charAt(0).toUpperCase();
+
+        // Mostrar panel admin
+        document.getElementById('admin-content').style.display = 'block';
+
+        inicializarDropzone();
+
+      } catch (err) {
+        if (err.message === 'Acceso denegado') {
+          document.getElementById('access-denied').style.display = 'flex';
+        } else if (err.message !== 'No autenticado') {
+          console.error(err);
+        }
+      }
+    }
+
+    // ====================================================
+    // FORMATO DE MONTO AUTOMÁTICO
+    // ====================================================
+    document.getElementById('monto').addEventListener('input', function(e) {
+      let value = this.value.replace(/\D/g, ''); // Quitar todo lo que no sea número
+      if (value === '') {
+        this.value = '';
+        this.dataset.raw = '';
+        return;
+      }
+      const num = parseInt(value, 10);
+      this.dataset.raw = num; // Guardar valor real limpio
+      // Formatear visualmente con separadores de miles
+      this.value = new Intl.NumberFormat('es-CO').format(num);
+    });
+
+    // ====================================================
+    // DRAG & DROP
+    // ====================================================
+
+    function inicializarDropzone() {
+      const dropzone = document.getElementById('dropzone');
+      const fileInput = document.getElementById('archivo-pdf');
+
+      // Click para abrir selector
+      dropzone.addEventListener('click', () => fileInput.click());
+
+      // Teclado (accesibilidad)
+      dropzone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          fileInput.click();
+        }
+      });
+
+      // Drag & Drop
+      dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+      });
+
+      dropzone.addEventListener('dragleave', () => {
+        dropzone.classList.remove('dragover');
+      });
+
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        if (file) procesarArchivo(file);
+      });
+
+      // Input file change
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) procesarArchivo(file);
+      });
+
+      // Remover archivo
+      document.getElementById('btn-remove-file').addEventListener('click', limpiarArchivo);
+    }
+
+    async function procesarArchivo(file) {
+      // Validar tipo
+      if (file.type !== 'application/pdf') {
+        mostrarAlerta('Solo se permiten archivos PDF.', 'error');
+        return;
+      }
+
+      // Validar tamaño (máx 10MB)
+      const MAX_MB = 10;
+      if (file.size > MAX_MB * 1024 * 1024) {
+        mostrarAlerta(`El archivo supera el tamaño máximo de ${MAX_MB}MB.`, 'error');
+        return;
+      }
+
+      archivoSeleccionado = file;
+
+      // Mostrar info del archivo
+      const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+      document.getElementById('file-name').textContent = file.name;
+      document.getElementById('file-size').textContent = `(${sizeMB} MB)`;
+      document.getElementById('file-info').style.display  = 'block';
+      document.getElementById('dropzone').style.display   = 'none';
+
+      // Generar hash SHA-256 en segundo plano
+      try {
+        document.getElementById('hash-preview').classList.add('visible');
+        document.getElementById('hash-value').textContent = '⏳ Generando hash...';
+        hashGenerado = await generarHashArchivo(file);
+        document.getElementById('hash-value').textContent = hashGenerado;
+      } catch (err) {
+        console.error('Error generando hash:', err);
+        document.getElementById('hash-value').textContent = 'Error al generar hash';
+      }
+    }
+
+    function limpiarArchivo() {
+      archivoSeleccionado = null;
+      hashGenerado        = null;
+      document.getElementById('archivo-pdf').value = '';
+      document.getElementById('file-info').style.display   = 'none';
+      document.getElementById('dropzone').style.display    = 'block';
+      document.getElementById('hash-preview').classList.remove('visible');
+    }
+
+    // ====================================================
+    // SUBMIT DEL FORMULARIO
+    // ====================================================
+
+    document.getElementById('upload-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      ocultarAlerta();
+
+      // Recoger valores
+      const titulo           = document.getElementById('titulo').value.trim();
+      const entidad          = document.getElementById('entidad').value.trim();
+      const estado           = document.getElementById('estado').value;
+      const monto            = parseFloat(document.getElementById('monto').dataset.raw || document.getElementById('monto').value.replace(/\D/g, ''));
+      const numero_licitacion = document.getElementById('numero_licitacion').value.trim();
+      const fecha_inicio     = document.getElementById('fecha_inicio').value;
+      const fecha_fin        = document.getElementById('fecha_fin').value;
+      const descripcion      = document.getElementById('descripcion').value.trim();
+
+      // Validaciones
+      if (!titulo || !entidad || !estado || isNaN(monto) || !fecha_inicio || !fecha_fin) {
+        mostrarAlerta('Por favor completa todos los campos obligatorios.', 'error');
+        return;
+      }
+
+      if (new Date(fecha_fin) <= new Date(fecha_inicio)) {
+        mostrarAlerta('La fecha de fin debe ser posterior a la fecha de inicio.', 'error');
+        return;
+      }
+
+      // Obtener usuario
+      const { getCurrentUser } = await import('../js/auth.js');
+      const user = await getCurrentUser();
+
+      // Estado de carga
+      setLoading(true);
+      mostrarProgreso('Guardando información del contrato...', 30);
+
+      try {
+        const datosContrato = {
+          titulo,
+          entidad,
+          estado,
+          monto,
+          numero_licitacion: numero_licitacion || null,
+          fecha_inicio,
+          fecha_fin,
+          descripcion: descripcion || null
+        };
+
+        if (archivoSeleccionado) {
+          mostrarProgreso('Subiendo archivo PDF...', 60);
+        }
+
+        mostrarProgreso('Registrando en auditoría...', 85);
+
+        const contrato = await crearContrato(datosContrato, archivoSeleccionado, user.id);
+
+        mostrarProgreso('¡Contrato publicado exitosamente!', 100);
+
+        mostrarAlerta('✅ ¡Contrato publicado correctamente! Redirigiendo...', 'success');
+
+        // Redirigir al detalle del contrato creado
+        setTimeout(() => {
+          navegarCon(`./detalle.html#id=${contrato.id}`);
+        }, 1500);
+
+      } catch (err) {
+        console.error('Error al subir contrato:', err);
+        mostrarAlerta(`Error al publicar el contrato: ${err.message}`, 'error');
+        setLoading(false);
+        document.getElementById('progress-section').style.display = 'none';
+      }
+    });
+
+    // ====================================================
+    // UTILIDADES DE UI
+    // ====================================================
+
+    function mostrarAlerta(mensaje, tipo = 'error') {
+      const iconos = { error: '⚠️', success: '✅', info: 'ℹ️' };
+      const clases = { error: 'alert-error', success: 'alert-success', info: 'alert-info' };
+      const container = document.getElementById('alert-container');
+      container.className = `alert ${clases[tipo]}`;
+      document.getElementById('alert-icon').textContent    = iconos[tipo];
+      document.getElementById('alert-message').textContent = mensaje;
+      container.style.display = 'flex';
+      container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function ocultarAlerta() {
+      document.getElementById('alert-container').style.display = 'none';
+    }
+
+    function setLoading(cargando) {
+      const btn = document.getElementById('btn-submit');
+      const cancelBtn = document.getElementById('btn-cancel');
+      btn.disabled = cargando;
+      cancelBtn.style.pointerEvents = cargando ? 'none' : 'auto';
+      btn.textContent = cargando ? 'Publicando...' : '🚀 Publicar Contrato';
+      if (cargando) btn.classList.add('btn-loading');
+      else btn.classList.remove('btn-loading');
+    }
+
+    function mostrarProgreso(label, percent) {
+      document.getElementById('progress-section').style.display = 'block';
+      document.getElementById('progress-label').textContent   = label;
+      document.getElementById('progress-percent').textContent = `${percent}%`;
+      document.getElementById('progress-bar').style.width     = `${percent}%`;
+    }
+
+    // Logout
+    document.getElementById('btn-logout').addEventListener('click', async () => {
+      await logout();
+      window.location.href = './login.html';
+    });
+
+    init();
+  </script>
+
+  <!-- Transiciones de página -->
+  <script src="../js/transitions.js"></script>
+
+</body>
+</html>

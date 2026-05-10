@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — LICITAPP</title>
+  <meta name="description" content="Panel principal del Sistema de Transparencia en Licitaciones.">
+  <link rel="stylesheet" href="../css/main.css">
+  <!-- ⚡ Anti-FOUC: aplica clase antes de pintar la página -->
+  <script>if(localStorage.getItem('licitapp_role')==='admin')document.documentElement.classList.add('is-admin');</script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="dashboard-layout">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" role="navigation" aria-label="Navegación principal">
+    <div class="navbar-inner">
+      <a href="./dashboard.html" class="navbar-brand" id="navbar-brand">
+        <div class="navbar-brand-logo" aria-hidden="true">🏛️</div>
+        <span class="navbar-brand-name">LICITAPP</span>
+      </a>
+
+      <div class="navbar-nav" id="navbar-nav">
+        <a href="./dashboard.html" class="nav-link active" id="nav-dashboard">Dashboard</a>
+        <a href="./contratos.html" class="nav-link" id="nav-contratos">Contratos</a>
+        <a href="./admin.html" class="nav-link admin-only" id="nav-admin">Admin</a>
+      </div>
+
+      <div class="navbar-actions">
+        <span id="user-role-badge" class="role-badge" style="display:none;"></span>
+        <div id="user-avatar" class="user-avatar" title="Mi cuenta" aria-label="Menú de usuario">?</div>
+        <button id="btn-logout" class="btn btn-ghost btn-sm" title="Cerrar sesión">Salir</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <main class="dashboard-main" id="main-content">
+
+    <!-- Skeleton Loading (visible mientras carga Supabase) -->
+    <div id="loading-state">
+
+      <!-- Skeleton de bienvenida -->
+      <div class="dashboard-welcome animate-in">
+        <div class="skeleton skeleton-title" style="max-width:280px; margin-bottom:8px;"></div>
+        <div class="skeleton skeleton-text-sm" style="max-width:380px;"></div>
+      </div>
+
+      <!-- Skeleton de stats -->
+      <div class="stats-grid" style="margin-bottom: var(--spacing-xl);">
+        <div class="skeleton-stat-card animate-in-d1">
+          <div class="skeleton skeleton-icon"></div>
+          <div class="skeleton-lines">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-text-sm"></div>
+          </div>
+        </div>
+        <div class="skeleton-stat-card animate-in-d2">
+          <div class="skeleton skeleton-icon"></div>
+          <div class="skeleton-lines">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-text-sm"></div>
+          </div>
+        </div>
+        <div class="skeleton-stat-card animate-in-d3">
+          <div class="skeleton skeleton-icon"></div>
+          <div class="skeleton-lines">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-text-sm"></div>
+          </div>
+        </div>
+        <div class="skeleton-stat-card animate-in-d4">
+          <div class="skeleton skeleton-icon"></div>
+          <div class="skeleton-lines">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-text-sm"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skeleton de tarjetas de contratos -->
+      <div class="contracts-grid">
+        <div class="skeleton-contract-card animate-in-d1">
+          <div class="skeleton skeleton-badge"></div>
+          <div class="skeleton skeleton-title" style="margin-top:4px;"></div>
+          <div class="skeleton skeleton-text-sm"></div>
+          <div class="skeleton skeleton-text-sm" style="width:40%;"></div>
+        </div>
+        <div class="skeleton-contract-card animate-in-d2">
+          <div class="skeleton skeleton-badge"></div>
+          <div class="skeleton skeleton-title" style="margin-top:4px;"></div>
+          <div class="skeleton skeleton-text-sm"></div>
+          <div class="skeleton skeleton-text-sm" style="width:40%;"></div>
+        </div>
+        <div class="skeleton-contract-card animate-in-d3">
+          <div class="skeleton skeleton-badge"></div>
+          <div class="skeleton skeleton-title" style="margin-top:4px;"></div>
+          <div class="skeleton skeleton-text-sm"></div>
+          <div class="skeleton skeleton-text-sm" style="width:40%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenido (oculto hasta cargar) -->
+    <div id="dashboard-content" style="display:none;">
+
+      <!-- Welcome -->
+      <div class="dashboard-welcome">
+        <h1 id="welcome-title">Bienvenido 👋</h1>
+        <p id="welcome-subtitle">Aquí puedes consultar y auditar los contratos públicos.</p>
+      </div>
+
+      <!-- Panel Admin (solo para admins) -->
+      <div id="admin-panel" class="admin-panel-section admin-only">
+        <h2>⚡ Panel de Administración</h2>
+        <p>Tienes acceso completo. Puedes subir contratos, gestionar datos y revisar auditorías.</p>
+        <div style="display: flex; gap: var(--spacing-sm); margin-top: var(--spacing-md);">
+          <a href="./admin.html" class="btn" style="background:white; color: var(--color-primary);">
+            ⚙️ Ir al Panel Admin
+          </a>
+          <a href="./subir.html" class="btn btn-secondary" style="border-color: white; color: white;">
+            📄 Subir Contrato
+          </a>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid" id="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-icon stat-icon-primary">📄</div>
+          <div>
+            <div class="stat-card-value" id="stat-total">—</div>
+            <div class="stat-card-label">Contratos Totales</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon stat-icon-success">✅</div>
+          <div>
+            <div class="stat-card-value" id="stat-activos">—</div>
+            <div class="stat-card-label">Contratos Activos</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon stat-icon-warning">⏳</div>
+          <div>
+            <div class="stat-card-value" id="stat-cerrados">—</div>
+            <div class="stat-card-label">Cerrados</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon stat-icon-info">🔐</div>
+          <div>
+            <div class="stat-card-value" id="stat-auditados">—</div>
+            <div class="stat-card-label">Con Hash Verificado</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contratos Recientes -->
+      <div>
+        <div class="section-header">
+          <h2 class="section-title">Contratos Recientes</h2>
+          <a href="./contratos.html" class="btn btn-secondary btn-sm" id="ver-todos-link">Ver todos →</a>
+        </div>
+        <div class="contracts-grid" id="contracts-grid">
+          <!-- Las tarjetas se insertan dinámicamente -->
+        </div>
+        <div id="empty-state" class="empty-state" style="display:none;">
+          <div class="empty-state-icon">📋</div>
+          <h3>Sin contratos aún</h3>
+          <p>Aún no hay contratos registrados en el sistema.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Transiciones de página -->
+  <script src="../js/transitions.js"></script>
+
+  <script type="module">
+    import { requireAuth, getUserProfile, logout } from '../js/auth.js';
+    import { listarContratos } from '../js/contratos.js';
+
+    // Formatear moneda
+    const formatMonto = (n) => n != null
+      ? new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(n)
+      : 'N/D';
+
+    // Formatear fecha
+    const formatFecha = (s) => s
+      ? new Date(s).toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' })
+      : 'N/D';
+
+    async function init() {
+      try {
+        const user    = await requireAuth();
+        const profile = await getUserProfile(user.id);
+        const esAdmin = profile?.rol === 'admin';
+
+        // Actualizar navbar
+        document.getElementById('user-avatar').textContent =
+          (profile?.nombre || user.email).charAt(0).toUpperCase();
+
+        const rolBadge = document.getElementById('user-role-badge');
+        rolBadge.textContent = esAdmin ? 'Admin' : 'Ciudadano';
+        rolBadge.className = `role-badge ${esAdmin ? 'role-admin' : 'role-citizen'}`;
+        rolBadge.style.display = 'inline-flex';
+
+        // ✅ Fuente de verdad: Supabase confirma el rol real.
+        // Esto corrige cualquier caché incorrecto del localStorage.
+        if (esAdmin) {
+          document.documentElement.classList.add('is-admin');
+          localStorage.setItem('licitapp_role', 'admin');
+        } else {
+          document.documentElement.classList.remove('is-admin');
+          localStorage.setItem('licitapp_role', 'ciudadano');
+        }
+
+        // Personalizar bienvenida
+        const nombre = profile?.nombre || user.email;
+        document.getElementById('welcome-title').textContent = `Bienvenido, ${nombre} 👋`;
+        if (esAdmin) {
+          document.getElementById('welcome-subtitle').textContent =
+            'Tienes acceso de administrador. Puedes subir y gestionar contratos.';
+        }
+
+        // Cargar contratos
+        const { data: contratos, count } = await listarContratos({ porPagina: 6 });
+
+        // Calcular stats
+        const activos  = contratos.filter(c => c.estado === 'activo').length;
+        const cerrados = contratos.filter(c => c.estado === 'cerrado').length;
+        const conHash  = contratos.filter(c => c.hash).length;
+
+        document.getElementById('stat-total').textContent    = count ?? contratos.length;
+        document.getElementById('stat-activos').textContent  = activos;
+        document.getElementById('stat-cerrados').textContent = cerrados;
+        document.getElementById('stat-auditados').textContent = conHash;
+
+        // Renderizar tarjetas
+        const grid = document.getElementById('contracts-grid');
+        if (!contratos || contratos.length === 0) {
+          document.getElementById('empty-state').style.display = 'block';
+        } else {
+          grid.innerHTML = contratos.map(c => `
+            <div class="contract-card" onclick="navegarCon('./detalle.html#id=${c.id}')"
+              role="button" tabindex="0" aria-label="Ver contrato: ${c.titulo}">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: var(--spacing-sm);">
+                <h3 class="contract-card-title">${c.titulo}</h3>
+                <span class="badge badge-${c.estado === 'activo' ? 'success' : c.estado === 'cancelado' ? 'danger' : 'secondary'}">
+                  ${c.estado || 'N/D'}
+                </span>
+              </div>
+              <p class="text-sm text-light" style="margin-bottom: var(--spacing-md);">${c.entidad || 'Entidad no especificada'}</p>
+              <div class="contract-card-meta">
+                <span>💰 ${formatMonto(c.monto)}</span>
+                <span>📅 ${formatFecha(c.fecha_inicio)}</span>
+                ${c.hash ? '<span title="Integridad verificada">🔐 Hash OK</span>' : ''}
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // Mostrar contenido
+        document.getElementById('loading-state').style.display  = 'none';
+        document.getElementById('dashboard-content').style.display = 'block';
+
+      } catch (err) {
+        if (err.message !== 'No autenticado') {
+          console.error('Error al cargar dashboard:', err);
+        }
+      }
+    }
+
+    // Cerrar sesión
+    document.getElementById('btn-logout').addEventListener('click', async () => {
+      try {
+        await logout();
+        window.location.href = './login.html';
+      } catch (err) {
+        console.error('Error al cerrar sesión:', err);
+      }
+    });
+
+    init();
+  </script>
+
+</body>
+</html>

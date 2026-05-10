@@ -1,0 +1,95 @@
+/* ============================================
+   RESET CSS - Normalización de estilos
+   Elimina inconsistencias entre navegadores
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ============================================
+   CONTROL DE VISIBILIDAD POR ROL (Anti-FOUC)
+   Los elementos .admin-only se ocultan por CSS
+   por defecto. Solo se muestran si el <html>
+   tiene la clase 'is-admin' (inyectada antes
+   de renderizar via micro-script en el <head>).
+   ============================================ */
+.admin-only {
+  display: none !important;
+}
+
+html.is-admin a.admin-only,
+html.is-admin span.admin-only,
+html.is-admin button.admin-only {
+  display: inline-flex !important;
+}
+
+html.is-admin div.admin-only,
+html.is-admin section.admin-only {
+  display: block !important;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}

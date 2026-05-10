@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contratos Públicos — LICITAPP</title>
+  <meta name="description" content="Consulta el listado completo de contratos públicos registrados en LICITAPP.">
+  <link rel="stylesheet" href="../css/main.css">
+  <!-- ⚡ Anti-FOUC -->
+  <script>if(localStorage.getItem('licitapp_role')==='admin')document.documentElement.classList.add('is-admin');</script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="contratos-layout">
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation">
+    <div class="navbar-inner">
+      <a href="./dashboard.html" class="navbar-brand">
+        <div class="navbar-brand-logo">🏛️</div>
+        <span class="navbar-brand-name">LICITAPP</span>
+      </a>
+      <div class="navbar-nav">
+        <a href="./dashboard.html" class="nav-link" id="nav-home">Dashboard</a>
+        <a href="./contratos.html" class="nav-link active">Contratos</a>
+        <a href="./admin.html" class="nav-link admin-only" id="nav-admin">Admin</a>
+      </div>
+      <div class="navbar-actions">
+        <div id="user-avatar" class="user-avatar">?</div>
+        <button id="btn-logout" class="btn btn-ghost btn-sm">Salir</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="contratos-main">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Contratos Públicos</h1>
+        <p class="page-subtitle" id="resultado-count">Cargando contratos...</p>
+      </div>
+      <a href="./subir.html" class="btn btn-primary admin-only" id="btn-nuevo">
+        + Nuevo Contrato
+      </a>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters-bar">
+      <div class="search-input-wrapper">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="search" id="search-input" class="search-input"
+          placeholder="Buscar por título, entidad..." aria-label="Buscar contratos">
+      </div>
+      <select id="filter-estado" class="form-select" style="width: auto; min-width: 160px;"
+        aria-label="Filtrar por estado">
+        <option value="">Todos los estados</option>
+        <option value="activo">Activo</option>
+        <option value="cerrado">Cerrado</option>
+        <option value="cancelado">Cancelado</option>
+      </select>
+    </div>
+
+    <!-- Tabla -->
+    <div class="contracts-table-wrapper">
+      <div id="loading-state">
+        <!-- Skeleton tabla -->
+        <table class="contracts-table" aria-hidden="true">
+          <thead>
+            <tr>
+              <th>Contrato</th><th>Entidad</th><th>Monto</th>
+              <th>Fecha Inicio</th><th>Estado</th><th>Integridad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="skeleton-table-row animate-in-d1">
+              <td><div class="skeleton skeleton-text"></div></td>
+              <td><div class="skeleton skeleton-text-sm"></div></td>
+              <td><div class="skeleton skeleton-text-sm"></div></td>
+              <td><div class="skeleton skeleton-text-sm"></div></td>
+              <td><div class="skeleton skeleton-badge"></div></td>
+              <td><div class="skeleton skeleton-badge"></div></td>
+            </tr>
+            <tr class="skeleton-table-row animate-in-d2">
+              <td><div class="skeleton skeleton-text"></div></td>
+              <td><div class="skeleton skeleton-text-sm"></div></td>
+              <td><div class="skeleton skeleton-text-sm"></div></td>
+              <td><div class="skeleton skeleton-text-sm"></div></td>
+              <td><div class="skeleton skeleton-badge"></div></td>
+              <td><div class="skeleton skeleton-badge"></div></td>
+            </tr>
+            <tr class="skeleton-table-row animate-in-d3">
+              <td><div class="skeleton skeleton-text"></div></td>
+              <td><div class="skeleton skeleton-text-sm"></div></td>
+              <td><div class="skeleton skeleton-text-sm"></div></td>
+              <td><div class="skeleton skeleton-text-sm"></div></td>
+              <td><div class="skeleton skeleton-badge"></div></td>
+              <td><div class="skeleton skeleton-badge"></div></td>
+            </tr>
+            <tr class="skeleton-table-row animate-in-d4">
+              <td><div class="skeleton skeleton-text"></div></td>
+              <td><div class="skeleton skeleton-text-sm"></div></td>
+              <td><div class="skeleton skeleton-text-sm"></div></td>
+              <td><div class="skeleton skeleton-text-sm"></div></td>
+              <td><div class="skeleton skeleton-badge"></div></td>
+              <td><div class="skeleton skeleton-badge"></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <table class="contracts-table" id="contracts-table" style="display:none;" aria-label="Lista de contratos">
+        <thead>
+          <tr>
+            <th scope="col">Contrato</th>
+            <th scope="col">Entidad</th>
+            <th scope="col">Monto</th>
+            <th scope="col">Fecha Inicio</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Integridad</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+      </table>
+
+      <div id="empty-state" class="empty-state" style="display:none;">
+        <div class="empty-state-icon">🔍</div>
+        <h3>Sin resultados</h3>
+        <p>No se encontraron contratos con los filtros aplicados.</p>
+      </div>
+
+      <!-- Paginación -->
+      <div class="pagination" id="pagination" style="display:none;">
+        <span class="pagination-info" id="pagination-info"></span>
+        <div class="pagination-controls" id="pagination-controls"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Transiciones de página -->
+  <script src="../js/transitions.js"></script>
+
+  <script type="module">
+    import { requireAuth, getUserProfile, logout } from '../js/auth.js';
+    import { listarContratos } from '../js/contratos.js';
+
+    const POR_PAGINA = 10;
+    let paginaActual = 1;
+    let busquedaActual = '';
+    let estadoActual = '';
+
+    const formatMonto = (n) => n != null
+      ? new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(n) : 'N/D';
+    const formatFecha = (s) => s
+      ? new Date(s).toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/D';
+
+    function estadoBadge(estado) {
+      const map = { activo: 'success', cerrado: 'secondary', cancelado: 'danger' };
+      return `<span class="badge badge-${map[estado] || 'secondary'}">${estado || 'N/D'}</span>`;
+    }
+
+    async function cargarContratos() {
+      document.getElementById('loading-state').style.display = 'block';
+      document.getElementById('contracts-table').style.display = 'none';
+      document.getElementById('empty-state').style.display = 'none';
+      document.getElementById('pagination').style.display = 'none';
+
+      try {
+        const { data, count } = await listarContratos({
+          busqueda: busquedaActual,
+          estado: estadoActual,
+          pagina: paginaActual,
+          porPagina: POR_PAGINA
+        });
+
+        document.getElementById('loading-state').style.display = 'none';
+
+        if (!data || data.length === 0) {
+          document.getElementById('empty-state').style.display = 'block';
+          document.getElementById('resultado-count').textContent = '0 contratos encontrados';
+          return;
+        }
+
+        // Renderizar filas
+        const total = count || data.length;
+        document.getElementById('resultado-count').textContent =
+          `${total} contrato${total !== 1 ? 's' : ''} encontrado${total !== 1 ? 's' : ''}`;
+
+        document.getElementById('table-body').innerHTML = data.map(c => `
+          <tr onclick="navegarCon('./detalle.html#id=${c.id}')"
+            style="cursor:pointer;" role="button" tabindex="0"
+            aria-label="Ver contrato ${c.titulo}">
+            <td data-label="Contrato">
+              <strong class="text-sm">${c.titulo}</strong>
+            </td>
+            <td data-label="Entidad" class="text-sm text-light">${c.entidad || 'N/D'}</td>
+            <td data-label="Monto" class="text-sm font-semibold">${formatMonto(c.monto)}</td>
+            <td data-label="Fecha Inicio" class="text-sm">${formatFecha(c.fecha_inicio)}</td>
+            <td data-label="Estado">${estadoBadge(c.estado)}</td>
+            <td data-label="Integridad">
+              ${c.hash
+                ? '<span class="badge badge-success" title="Hash SHA-256 verificado">🔐 OK</span>'
+                : '<span class="badge badge-secondary">Sin hash</span>'
+              }
+            </td>
+          </tr>
+        `).join('');
+
+        document.getElementById('contracts-table').style.display = 'table';
+
+        // Paginación
+        const totalPaginas = Math.ceil(total / POR_PAGINA);
+        if (totalPaginas > 1) {
+          const inicio = (paginaActual - 1) * POR_PAGINA + 1;
+          const fin    = Math.min(paginaActual * POR_PAGINA, total);
+          document.getElementById('pagination-info').textContent =
+            `Mostrando ${inicio}–${fin} de ${total}`;
+
+          const controls = document.getElementById('pagination-controls');
+          controls.innerHTML = Array.from({ length: totalPaginas }, (_, i) => i + 1)
+            .map(p => `
+              <button class="pagination-btn ${p === paginaActual ? 'active' : ''}"
+                onclick="cambiarPagina(${p})" aria-label="Página ${p}"
+                ${p === paginaActual ? 'aria-current="page"' : ''}>
+                ${p}
+              </button>
+            `).join('');
+
+          document.getElementById('pagination').style.display = 'flex';
+        }
+
+      } catch (err) {
+        console.error('Error cargando contratos:', err);
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('resultado-count').textContent = 'Error al cargar contratos.';
+      }
+    }
+
+    // Exponer función al scope global para los botones de paginación
+    window.cambiarPagina = (p) => {
+      paginaActual = p;
+      cargarContratos();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    async function init() {
+      try {
+        const user    = await requireAuth();
+        const profile = await getUserProfile(user.id);
+        const esAdmin = profile?.rol === 'admin';
+
+        document.getElementById('user-avatar').textContent =
+          (profile?.nombre || user.email).charAt(0).toUpperCase();
+
+        // ✅ Fuente de verdad: Supabase confirma el rol real.
+        // Si el caché de localStorage estaba desactualizado, corregimos aquí.
+        if (esAdmin) {
+          document.documentElement.classList.add('is-admin');
+          localStorage.setItem('licitapp_role', 'admin');
+        } else {
+          document.documentElement.classList.remove('is-admin');
+          localStorage.setItem('licitapp_role', 'ciudadano');
+        }
+
+        // Búsqueda con debounce
+        let debounceTimer;
+        document.getElementById('search-input').addEventListener('input', (e) => {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(() => {
+            busquedaActual = e.target.value;
+            paginaActual = 1;
+            cargarContratos();
+          }, 400);
+        });
+
+        document.getElementById('filter-estado').addEventListener('change', (e) => {
+          estadoActual = e.target.value;
+          paginaActual = 1;
+          cargarContratos();
+        });
+
+        await cargarContratos();
+
+      } catch (err) {
+        if (err.message !== 'No autenticado') console.error(err);
+      }
+    }
+
+    document.getElementById('btn-logout').addEventListener('click', async () => {
+      await logout();
+      window.location.href = './login.html';
+    });
+
+    init();
+  </script>
+
+</body>
+</html>

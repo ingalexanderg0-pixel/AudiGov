@@ -1,0 +1,29 @@
+/* ============================================
+   LICITAPP - Sistema de Transparencia
+   Hoja de estilos maestra
+   ============================================ */
+
+/* 1. BASE (fundamentos) */
+@import url('./base/reset.css');
+@import url('./base/variables.css');
+@import url('./base/typography.css');
+
+/* 2. COMPONENTES (elementos reutilizables) */
+@import url('./components/buttons.css');
+@import url('./components/forms.css');
+@import url('./components/cards.css');
+@import url('./components/navbar.css');
+@import url('./components/modals.css');
+
+/* 3. PÁGINAS (estilos específicos) */
+@import url('./pages/login.css');
+@import url('./pages/register.css');
+@import url('./pages/dashboard.css');
+@import url('./pages/contratos.css');
+@import url('./pages/detalle.css');
+@import url('./pages/admin.css');
+
+/* 4. UTILIDADES (clases auxiliares) */
+@import url('./utils/helpers.css');
+@import url('./utils/responsive.css');
+@import url('./utils/animations.css');

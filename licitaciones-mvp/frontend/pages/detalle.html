@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle de Contrato — LICITAPP</title>
+  <meta name="description" content="Detalle e historial de auditoría de un contrato público.">
+  <link rel="stylesheet" href="../css/main.css">
+  <!-- ⚡ Anti-FOUC -->
+  <script>if(localStorage.getItem('licitapp_role')==='admin')document.documentElement.classList.add('is-admin');</script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="detalle-layout">
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation">
+    <div class="navbar-inner">
+      <a href="./dashboard.html" class="navbar-brand">
+        <div class="navbar-brand-logo">🏛️</div>
+        <span class="navbar-brand-name">LICITAPP</span>
+      </a>
+      <div class="navbar-nav">
+        <a href="./dashboard.html" class="nav-link">Dashboard</a>
+        <a href="./contratos.html" class="nav-link">Contratos</a>
+        <a href="./admin.html" class="nav-link admin-only" id="nav-admin">Admin</a>
+      </div>
+      <div class="navbar-actions">
+        <div id="user-avatar" class="user-avatar">?</div>
+        <button id="btn-logout" class="btn btn-ghost btn-sm">Salir</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="detalle-main">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Ruta de navegación">
+      <a href="./dashboard.html">Inicio</a>
+      <span class="breadcrumb-separator" aria-hidden="true">/</span>
+      <a href="./contratos.html">Contratos</a>
+      <span class="breadcrumb-separator" aria-hidden="true">/</span>
+      <span id="breadcrumb-title">Cargando...</span>
+    </nav>
+
+    <!-- Skeleton Loading -->
+    <div id="loading-state">
+      <div class="skeleton-detail-header animate-in">
+        <div class="skeleton skeleton-badge" style="width:80px; margin-bottom: var(--spacing-sm);"></div>
+        <div class="skeleton skeleton-title" style="max-width:55%; margin-bottom: var(--spacing-sm);"></div>
+        <div class="skeleton skeleton-title" style="max-width:35%; height:16px;"></div>
+      </div>
+      <div class="skeleton-meta-row animate-in-d1" style="margin-bottom: var(--spacing-xl);">
+        <div class="skeleton skeleton-text-sm" style="width:120px;"></div>
+        <div class="skeleton skeleton-text-sm" style="width:140px;"></div>
+        <div class="skeleton skeleton-text-sm" style="width:180px;"></div>
+        <div class="skeleton skeleton-text-sm" style="width:120px;"></div>
+      </div>
+      <!-- Skeleton del bloque de hash -->
+      <div class="animate-in-d2" style="background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); padding:var(--spacing-lg); margin-bottom:var(--spacing-xl);">
+        <div class="skeleton skeleton-text-sm" style="width:220px; margin-bottom:var(--spacing-sm);"></div>
+        <div class="skeleton skeleton-text" style="height:32px;"></div>
+      </div>
+      <!-- Skeleton del historial -->
+      <div class="animate-in-d3" style="background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); padding:var(--spacing-lg);">
+        <div class="skeleton skeleton-title" style="width:180px; margin-bottom:var(--spacing-md);"></div>
+        <div style="display:flex; flex-direction:column; gap:var(--spacing-md);">
+          <div class="skeleton skeleton-text"></div>
+          <div class="skeleton skeleton-text" style="width:80%;"></div>
+          <div class="skeleton skeleton-text" style="width:60%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenido -->
+    <div id="detalle-content" style="display:none;">
+
+      <!-- Header del Contrato -->
+      <div class="contract-detail-header">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap: var(--spacing-md);">
+          <h1 class="contract-detail-title" id="contrato-titulo">—</h1>
+          <span id="contrato-estado-badge" class="badge" style="font-size: var(--font-size-sm); padding: 0.4rem 1rem;"></span>
+        </div>
+
+        <div class="contract-detail-meta">
+          <div class="contract-meta-item">🏢 <span id="contrato-entidad">—</span></div>
+          <div class="contract-meta-item">💰 <span id="contrato-monto">—</span></div>
+          <div class="contract-meta-item">📅 <span id="contrato-fechas">—</span></div>
+          <div class="contract-meta-item">👤 <span id="contrato-subido">—</span></div>
+        </div>
+
+        <p id="contrato-descripcion" class="text-sm text-light" style="margin-top: var(--spacing-md);"></p>
+
+        <!-- Hash SHA-256 -->
+        <div class="hash-block" id="hash-block" style="display:none;">
+          <div class="hash-label">🔐 Hash SHA-256 (Integridad del documento)</div>
+          <div class="hash-value" id="contrato-hash">—</div>
+        </div>
+
+        <!-- Acciones -->
+        <div style="margin-top: var(--spacing-lg); display:flex; gap: var(--spacing-md); flex-wrap:wrap;">
+          <a id="btn-descargar" href="#" target="_blank" rel="noopener noreferrer"
+            class="btn btn-primary btn-sm" style="display:none;">
+            📥 Ver Documento PDF
+          </a>
+          <button id="btn-verificar" class="btn btn-secondary btn-sm" style="display:none;">
+            🔍 Verificar Integridad
+          </button>
+          <a href="./contratos.html" class="btn btn-ghost btn-sm">← Volver al listado</a>
+        </div>
+      </div>
+
+      <!-- Historial de Auditoría -->
+      <div class="detail-section">
+        <h2 class="detail-section-title">📋 Historial de Auditoría</h2>
+        <div id="audit-loading" style="text-align:center; padding: var(--spacing-lg);">
+          <div class="spinner" style="margin: 0 auto;"></div>
+        </div>
+        <div class="audit-trail" id="audit-trail" style="display:none;"></div>
+        <p id="audit-empty" class="text-sm text-muted text-center" style="display:none; padding: var(--spacing-lg);">
+          Sin registros de auditoría todavía.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="empty-state" style="display:none;">
+      <div class="empty-state-icon">❌</div>
+      <h3>Contrato no encontrado</h3>
+      <p>El contrato que buscas no existe o fue eliminado.</p>
+      <a href="./contratos.html" class="btn btn-primary" style="margin-top: var(--spacing-lg);">
+        ← Volver al listado
+      </a>
+    </div>
+
+  </main>
+
+  <script type="module">
+    import { requireAuth, getUserProfile, logout } from '../js/auth.js';
+    import { obtenerContrato } from '../js/contratos.js';
+    import { obtenerHistorialContrato, registrarAccion, ACCIONES, formatearEntradaAuditoria } from '../js/auditoria.js';
+    import { verificarIntegridad } from '../js/hash.js';
+
+    const formatMonto = (n) => n != null
+      ? new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(n) : 'N/D';
+    const formatFecha = (s) => s
+      ? new Date(s).toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/D';
+
+    // Obtener ID del contrato de la URL
+    const params = new URLSearchParams(window.location.search);
+    let contratoId = params.get('id');
+    
+    // Fallback: Si el servidor de desarrollo (ej. serve con cleanUrls) 
+    // hizo una redirección 301 y eliminó los query params, leemos el hash que los navegadores sí preservan.
+    if (!contratoId && window.location.hash && window.location.hash.startsWith('#id=')) {
+      contratoId = window.location.hash.replace('#id=', '');
+    }
+
+    async function init() {
+      if (!contratoId) {
+        mostrarError();
+        return;
+      }
+
+      try {
+        const user    = await requireAuth();
+        const profile = await getUserProfile(user.id);
+
+        document.getElementById('user-avatar').textContent =
+          (profile?.nombre || user.email).charAt(0).toUpperCase();
+
+        // Cargar contrato
+        const contrato = await obtenerContrato(contratoId);
+        mostrarContrato(contrato);
+
+        // Registrar vista en auditoría
+        await registrarAccion({
+          contrato_id: contratoId,
+          usuario_id: user.id,
+          accion: ACCIONES.VER,
+          descripcion: `Contrato "${contrato.titulo}" consultado`
+        });
+
+        // Cargar historial de auditoría
+        await cargarAuditoria(contratoId);
+
+        // Mostrar contenido
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('detalle-content').style.display = 'block';
+
+      } catch (err) {
+        if (err.message !== 'No autenticado') {
+          console.error('Error:', err);
+          document.getElementById('loading-state').style.display = 'none';
+          mostrarError(err);
+        }
+      }
+    }
+
+    function mostrarContrato(c) {
+      document.title = `${c.titulo} — LICITAPP`;
+      document.getElementById('breadcrumb-title').textContent = c.titulo;
+      document.getElementById('contrato-titulo').textContent = c.titulo;
+      document.getElementById('contrato-entidad').textContent = c.entidad || 'N/D';
+      document.getElementById('contrato-monto').textContent = formatMonto(c.monto);
+      document.getElementById('contrato-descripcion').textContent = c.descripcion || '';
+
+      const fechas = `${formatFecha(c.fecha_inicio)} → ${formatFecha(c.fecha_fin)}`;
+      document.getElementById('contrato-fechas').textContent = fechas;
+
+      let subido = 'Desconocido';
+      if (c.perfiles?.nombre) {
+        const partes = c.perfiles.nombre.trim().split(/\s+/);
+        subido = partes.length > 1 ? `${partes[0]} ${partes[1]}` : partes[0];
+      } else if (c.perfiles?.email) {
+        subido = c.perfiles.email;
+      }
+      document.getElementById('contrato-subido').textContent = subido;
+
+      // Badge de estado
+      const estadoMap = { activo: 'success', cerrado: 'secondary', cancelado: 'danger' };
+      const badge = document.getElementById('contrato-estado-badge');
+      badge.textContent = c.estado || 'N/D';
+      badge.className = `badge badge-${estadoMap[c.estado] || 'secondary'}`;
+
+      // Hash
+      if (c.hash) {
+        document.getElementById('contrato-hash').textContent = c.hash;
+        document.getElementById('hash-block').style.display = 'block';
+        document.getElementById('btn-verificar').style.display = 'inline-flex';
+      }
+
+      // Botón de descarga
+      if (c.archivo_url) {
+        const btnDesc = document.getElementById('btn-descargar');
+        btnDesc.href = c.archivo_url;
+        btnDesc.style.display = 'inline-flex';
+      }
+    }
+
+    async function cargarAuditoria(id) {
+      try {
+        const historial = await obtenerHistorialContrato(id);
+        document.getElementById('audit-loading').style.display = 'none';
+
+        const trail = document.getElementById('audit-trail');
+        if (!historial || historial.length === 0) {
+          document.getElementById('audit-empty').style.display = 'block';
+        } else {
+          trail.innerHTML = historial.map(entrada => `
+            <div class="audit-item">
+              <div class="audit-icon">${{ CREAR:'✅', MODIFICAR:'✏️', ELIMINAR:'🗑️', VER:'👁️', DESCARGAR:'📥', VERIFICAR_HASH:'🔐' }[entrada.accion] || '📋'}</div>
+              <div class="audit-content">
+                <div class="audit-action">${entrada.descripcion}</div>
+                <div class="audit-time">
+                  ${entrada.perfiles?.nombre || entrada.perfiles?.email || 'Usuario'} —
+                  ${new Date(entrada.created_at || entrada.timestamp).toLocaleString('es-MX', { year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' })}
+                </div>
+                ${entrada.hash_resultante ? `<div class="text-xs text-mono" style="margin-top:4px; color: var(--color-success-dark);">Hash: ${entrada.hash_resultante.slice(0, 24)}...</div>` : ''}
+              </div>
+            </div>
+          `).join('');
+          trail.style.display = 'flex';
+        }
+      } catch (err) {
+        console.error('Error cargando auditoría:', err);
+        document.getElementById('audit-loading').style.display = 'none';
+        document.getElementById('audit-empty').style.display = 'block';
+      }
+    }
+
+    function mostrarError(err) {
+      document.getElementById('loading-state').style.display = 'none';
+      const errorState = document.getElementById('error-state');
+      errorState.style.display = 'block';
+      if (err) {
+        let msg = err.message || JSON.stringify(err);
+        const debugP = document.createElement('p');
+        debugP.className = 'text-xs text-danger';
+        debugP.style.marginTop = 'var(--spacing-md)';
+        debugP.textContent = `Error Técnico (Debug): ${msg}`;
+        errorState.appendChild(debugP);
+      }
+    }
+
+    // Verificar integridad del archivo
+    document.getElementById('btn-verificar').addEventListener('click', () => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'application/pdf';
+      input.onchange = async (e) => {
+        const archivo = e.target.files[0];
+        if (!archivo) return;
+        try {
+          const hashEsperado = document.getElementById('contrato-hash').textContent;
+          const { verificarIntegridad: verify } = await import('../js/hash.js');
+          const integro = await verify(archivo, hashEsperado);
+          alert(integro
+            ? '✅ El documento es auténtico. El hash coincide perfectamente.'
+            : '⚠️ ALERTA: El documento fue modificado. El hash NO coincide.'
+          );
+        } catch (err) {
+          alert('Error al verificar: ' + err.message);
+        }
+      };
+      input.click();
+    });
+
+    document.getElementById('btn-logout').addEventListener('click', async () => {
+      const { logout } = await import('../js/auth.js');
+      await logout();
+      window.location.href = './login.html';
+    });
+
+    init();
+  </script>
+
+  <!-- Transiciones de página -->
+  <script src="../js/transitions.js"></script>
+
+</body>
+</html>

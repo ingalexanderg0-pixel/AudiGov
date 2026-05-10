@@ -1,0 +1,205 @@
+/* ============================================
+   RESPONSIVE - Media queries
+   Enfoque mobile-first
+   ============================================ */
+
+/* ===== BREAKPOINTS REFERENCE ===== */
+/* sm:  640px   */
+/* md:  768px   */
+/* lg:  1024px  */
+/* xl:  1280px  */
+
+/* ===== PEQUEÑO (sm: 640px+) ===== */
+@media (min-width: 640px) {
+  .sm-d-none  { display: none !important; }
+  .sm-d-block { display: block !important; }
+  .sm-d-flex  { display: flex !important; }
+
+  .sm-flex-row { flex-direction: row; }
+  .sm-flex-col { flex-direction: column; }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .login-card,
+  .register-card {
+    padding: var(--spacing-3xl);
+  }
+}
+
+/* ===== MEDIANO (md: 768px+) ===== */
+@media (min-width: 768px) {
+  .md-d-none  { display: none !important; }
+  .md-d-block { display: block !important; }
+  .md-d-flex  { display: flex !important; }
+
+  .filters-bar {
+    flex-wrap: nowrap;
+  }
+
+  .page-header {
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===== GRANDE (lg: 1024px+) ===== */
+@media (min-width: 1024px) {
+  .lg-d-none  { display: none !important; }
+  .lg-d-block { display: block !important; }
+  .lg-d-flex  { display: flex !important; }
+
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .contracts-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .navbar-toggle {
+    display: none !important;
+  }
+}
+
+/* ===== EXTRA GRANDE (xl: 1280px+) ===== */
+@media (min-width: 1280px) {
+  .container {
+    padding: 0 var(--spacing-2xl);
+  }
+
+  .dashboard-main,
+  .contratos-main,
+  .admin-main {
+    padding: var(--spacing-3xl) var(--spacing-2xl);
+  }
+}
+
+/* ===== MÓVIL (max-width: 639px) ===== */
+@media (max-width: 639px) {
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .navbar-nav {
+    display: none;
+    position: absolute;
+    top: var(--navbar-height);
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    flex-direction: column;
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .navbar-nav.open {
+    display: flex;
+  }
+
+  .navbar-toggle {
+    display: flex;
+  }
+
+  .navbar-inner {
+    padding: 0 var(--spacing-md);
+    position: relative;
+  }
+
+  .login-card,
+  .register-card {
+    padding: var(--spacing-xl) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+  }
+
+  .contract-detail-meta {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filters-bar {
+    flex-direction: column;
+  }
+
+  .search-input-wrapper {
+    width: 100%;
+  }
+
+  .modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+
+  .contracts-table thead {
+    display: none;
+  }
+
+  .contracts-table,
+  .contracts-table tbody,
+  .contracts-table tr,
+  .contracts-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .contracts-table tr {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
+
+  .contracts-table td {
+    border-bottom: none;
+    padding: var(--spacing-xs) 0;
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .contracts-table td::before {
+    content: attr(data-label);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-light);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* ===== PRINT ===== */
+@media print {
+  .navbar,
+  .btn,
+  .filters-bar,
+  .pagination {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .card,
+  .contract-detail-header,
+  .detail-section {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}

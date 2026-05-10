@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración — LICITAPP</title>
+  <meta name="description" content="Panel principal de administración de LICITAPP.">
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="admin-layout">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" role="navigation" aria-label="Navegación principal">
+    <div class="navbar-inner">
+      <a href="./dashboard.html" class="navbar-brand">
+        <div class="navbar-brand-logo" aria-hidden="true">🏛️</div>
+        <span class="navbar-brand-name">LICITAPP</span>
+      </a>
+      <div class="navbar-nav">
+        <a href="./dashboard.html" class="nav-link">Dashboard</a>
+        <a href="./contratos.html" class="nav-link">Contratos</a>
+        <a href="./admin.html"     class="nav-link active">Admin</a>
+      </div>
+      <div class="navbar-actions">
+        <span class="role-badge role-admin" style="display:inline-flex;">Admin</span>
+        <div id="user-avatar" class="user-avatar">?</div>
+        <button id="btn-logout" class="btn btn-ghost btn-sm">Salir</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== CONTENIDO ===== -->
+  <main class="admin-main" id="main-content">
+
+    <!-- Acceso denegado (oculto por defecto) -->
+    <div id="access-denied" class="access-denied" style="display:none;">
+      <div class="access-denied-icon">🚫</div>
+      <h2>Acceso Denegado</h2>
+      <p>Esta sección es exclusiva para administradores del sistema.</p>
+      <a href="./dashboard.html" class="btn btn-primary" style="margin-top: var(--spacing-lg);">
+        ← Volver al Dashboard
+      </a>
+    </div>
+
+    <!-- Panel Admin -->
+    <div id="admin-content" style="display:none;">
+
+      <div class="page-header" style="margin-bottom: var(--spacing-2xl);">
+        <div>
+          <h1 class="page-title">Panel de Administración</h1>
+          <p class="page-subtitle">Gestiona contratos, auditorías y accesos al sistema.</p>
+        </div>
+      </div>
+
+      <!-- Grid de acciones -->
+      <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+        
+        <!-- Tarjeta Subir Contrato -->
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title" style="display: flex; align-items: center; gap: var(--spacing-xs);">
+              📄 Subir Contrato
+            </h3>
+            <p class="text-sm text-light" style="margin-bottom: var(--spacing-md);">
+              Registra nuevos contratos en la base de datos y genera el hash criptográfico SHA-256 de seguridad.
+            </p>
+            <a href="./subir.html" class="btn btn-primary btn-full">Ir a Subir Contrato</a>
+          </div>
+        </div>
+
+        <!-- Tarjeta Auditoría (Mockup) -->
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title" style="display: flex; align-items: center; gap: var(--spacing-xs);">
+              🔍 Logs de Auditoría
+            </h3>
+            <p class="text-sm text-light" style="margin-bottom: var(--spacing-md);">
+              Visualiza el registro inmutable de todos los contratos subidos y manipulados en el sistema.
+            </p>
+            <button class="btn btn-secondary btn-full" disabled>Próximamente</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script type="module">
+    import { requireAdmin, logout } from '../js/auth.js';
+
+    async function init() {
+      try {
+        // Validar rol de administrador y proteger la ruta
+        const { user, profile } = await requireAdmin();
+
+        // Mostrar avatar con inicial
+        document.getElementById('user-avatar').textContent =
+          (profile?.nombre || user.email).charAt(0).toUpperCase();
+
+        // Mostrar contenido del panel
+        document.getElementById('admin-content').style.display = 'block';
+
+      } catch (err) {
+        if (err.message === 'Acceso denegado') {
+          // El usuario está logueado pero no es admin
+          document.getElementById('access-denied').style.display = 'flex';
+        } else if (err.message !== 'No autenticado') {
+          // Otros errores no relacionados con autenticación
+          console.error(err);
+        }
+      }
+    }
+
+    // Evento de Logout
+    document.getElementById('btn-logout').addEventListener('click', async () => {
+      await logout();
+      window.location.href = './login.html';
+    });
+
+    // Iniciar validación
+    init();
+  </script>
+
+  <!-- Transiciones de página -->
+  <script src="../js/transitions.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión — LICITAPP</title>
+  <meta name="description" content="Inicia sesión en LICITAPP, el sistema de transparencia en licitaciones públicas.">
+
+  <!-- Estilos (un solo import) -->
+  <link rel="stylesheet" href="../css/main.css">
+
+  <!-- Supabase desde CDN (debe ir ANTES de los módulos JS) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="login-page">
+
+  <div class="login-container">
+    <div class="login-card">
+
+      <!-- ===== HEADER ===== -->
+      <div class="login-header">
+        <div class="login-logo" aria-hidden="true">🏛️</div>
+        <h1 class="login-app-name">LICITAPP</h1>
+        <p class="login-tagline">Sistema de Transparencia en Licitaciones</p>
+      </div>
+
+      <!-- ===== MENSAJE DE ERROR/ÉXITO ===== -->
+      <div id="alert-container" class="alert alert-error" role="alert" aria-live="polite" style="display: none;">
+        <span id="alert-icon">⚠️</span>
+        <span id="alert-message"></span>
+      </div>
+
+      <!-- ===== FORMULARIO DE LOGIN ===== -->
+      <form id="login-form" novalidate>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email" class="form-label required">Correo electrónico</label>
+          <div class="input-wrapper">
+            <span class="input-icon" aria-hidden="true">✉️</span>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              placeholder="usuario@ejemplo.com"
+              autocomplete="email"
+              required
+              autofocus
+            >
+          </div>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="form-group">
+          <label for="password" class="form-label required">Contraseña</label>
+          <div class="input-wrapper">
+            <span class="input-icon" aria-hidden="true">🔒</span>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-input"
+              placeholder="Tu contraseña"
+              autocomplete="current-password"
+              required
+              minlength="6"
+            >
+          </div>
+        </div>
+
+        <!-- Botón Submit -->
+        <button
+          type="submit"
+          id="btn-login"
+          class="btn btn-primary btn-full btn-lg"
+          style="margin-top: var(--spacing-lg);"
+        >
+          Iniciar Sesión
+        </button>
+
+      </form>
+
+      <!-- ===== FOOTER ===== -->
+      <div class="login-footer" style="margin-top: var(--spacing-xl);">
+        <p>¿No tienes cuenta? <a href="./register.html" id="link-register">Regístrate aquí</a></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script type="module">
+    // Importar funciones de autenticación
+    import { login, redirectIfAuthenticated } from '../js/auth.js';
+
+    // ========================================
+    // INICIALIZACIÓN
+    // ========================================
+
+    // Si el usuario ya está autenticado, redirigir al dashboard
+    redirectIfAuthenticated();
+
+    // Referencias al DOM
+    const loginForm    = document.getElementById('login-form');
+    const emailInput   = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const btnLogin     = document.getElementById('btn-login');
+    const alertContainer = document.getElementById('alert-container');
+    const alertMessage = document.getElementById('alert-message');
+    const alertIcon    = document.getElementById('alert-icon');
+
+    // ========================================
+    // FUNCIONES DE UI
+    // ========================================
+
+    /**
+     * Mostrar mensaje de alerta al usuario.
+     * @param {string} mensaje - Texto del mensaje
+     * @param {'error'|'success'|'info'} tipo - Tipo de alerta
+     */
+    function mostrarAlerta(mensaje, tipo = 'error') {
+      const iconos = { error: '⚠️', success: '✅', info: 'ℹ️' };
+      const clases = { error: 'alert-error', success: 'alert-success', info: 'alert-info' };
+
+      // Limpiar clases anteriores
+      alertContainer.className = `alert ${clases[tipo]}`;
+      alertIcon.textContent = iconos[tipo];
+      alertMessage.textContent = mensaje;
+      alertContainer.style.display = 'flex';
+
+      // Auto-ocultar mensajes de éxito
+      if (tipo === 'success') {
+        setTimeout(() => ocultarAlerta(), 3000);
+      }
+    }
+
+    function ocultarAlerta() {
+      alertContainer.style.display = 'none';
+    }
+
+    /**
+     * Establecer estado de carga del botón.
+     * @param {boolean} cargando - Si está cargando
+     */
+    function setLoading(cargando) {
+      btnLogin.disabled = cargando;
+      if (cargando) {
+        btnLogin.textContent = 'Iniciando sesión...';
+        btnLogin.classList.add('btn-loading');
+      } else {
+        btnLogin.textContent = 'Iniciar Sesión';
+        btnLogin.classList.remove('btn-loading');
+      }
+    }
+
+    /**
+     * Traducir mensajes de error de Supabase al español.
+     * @param {string} errorMessage - Mensaje de error en inglés
+     * @returns {string} - Mensaje en español
+     */
+    function traducirError(errorMessage) {
+      const errores = {
+        'Invalid login credentials': 'Correo o contraseña incorrectos. Por favor, verifica tus datos.',
+        'Email not confirmed':       'Debes confirmar tu correo electrónico antes de iniciar sesión.',
+        'Too many requests':         'Demasiados intentos. Por favor, espera unos minutos e inténtalo de nuevo.',
+        'User not found':            'No existe una cuenta con ese correo electrónico.',
+        'Network request failed':    'Error de conexión. Verifica tu conexión a internet.',
+      };
+
+      for (const [key, value] of Object.entries(errores)) {
+        if (errorMessage.includes(key)) return value;
+      }
+
+      return `Error: ${errorMessage}`;
+    }
+
+    // ========================================
+    // MANEJO DEL FORMULARIO
+    // ========================================
+
+    loginForm.addEventListener('submit', async (e) => {
+      // 1. Prevenir recarga de página
+      e.preventDefault();
+
+      // Ocultar alertas previas
+      ocultarAlerta();
+
+      // 2. Obtener y validar valores
+      const email    = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      if (!email || !password) {
+        mostrarAlerta('Por favor, completa todos los campos.', 'error');
+        return;
+      }
+
+      if (!email.includes('@')) {
+        mostrarAlerta('Por favor, ingresa un correo válido.', 'error');
+        emailInput.focus();
+        return;
+      }
+
+      // 3. Mostrar estado de carga
+      setLoading(true);
+
+      try {
+        // 4. Llamar a la función de login
+        const data = await login(email, password);
+
+        // 5. Si exitoso: mostrar éxito y redirigir
+        mostrarAlerta('¡Sesión iniciada! Redirigiendo...', 'success');
+
+        // Verificar si hay una URL guardada para redirigir
+        const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
+        sessionStorage.removeItem('redirectAfterLogin');
+
+        setTimeout(() => {
+          window.location.href = redirectUrl || './dashboard.html';
+        }, 800);
+
+      } catch (error) {
+        // 6. Si falla: mostrar mensaje de error
+        console.error('Error de login:', error);
+        mostrarAlerta(traducirError(error.message), 'error');
+        setLoading(false);
+
+        // Limpiar campo de contraseña por seguridad
+        passwordInput.value = '';
+        passwordInput.focus();
+      }
+    });
+
+    // ========================================
+    // UX ADICIONAL
+    // ========================================
+
+    // Ocultar alerta al escribir en los inputs
+    emailInput.addEventListener('input', ocultarAlerta);
+    passwordInput.addEventListener('input', ocultarAlerta);
+  </script>
+
+  <!-- Transiciones de página -->
+  <script src="../js/transitions.js"></script>
+
+</body>
+</html>

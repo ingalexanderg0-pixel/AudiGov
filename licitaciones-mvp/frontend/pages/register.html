@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Cuenta — LICITAPP</title>
+  <meta name="description" content="Regístrate en LICITAPP para consultar contratos públicos y auditar licitaciones.">
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="register-page">
+
+  <div class="register-card">
+
+      <!-- Header -->
+      <div class="register-header">
+        <div class="register-logo" aria-hidden="true">🏛️</div>
+        <h1 class="register-title">Crear Cuenta</h1>
+        <p class="register-subtitle">Únete al sistema de transparencia</p>
+      </div>
+
+      <!-- Alerta -->
+      <div id="alert-container" class="alert" role="alert" aria-live="polite" style="display:none; margin-bottom: var(--spacing-lg);">
+        <span id="alert-icon">⚠️</span>
+        <span id="alert-message"></span>
+      </div>
+
+      <!-- Formulario -->
+      <form id="register-form" novalidate>
+
+        <div class="form-group">
+          <label for="nombre" class="form-label required">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" class="form-input"
+            placeholder="Juan Pérez García" autocomplete="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label required">Correo electrónico</label>
+          <input type="email" id="email" name="email" class="form-input"
+            placeholder="usuario@ejemplo.com" autocomplete="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label required">Contraseña</label>
+          <input type="password" id="password" name="password" class="form-input"
+            placeholder="Mínimo 6 caracteres" autocomplete="new-password" required minlength="6">
+          <span class="form-hint">Usa al menos 6 caracteres con letras y números.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-password" class="form-label required">Confirmar contraseña</label>
+          <input type="password" id="confirm-password" name="confirm-password" class="form-input"
+            placeholder="Repite tu contraseña" autocomplete="new-password" required>
+        </div>
+
+        <button type="submit" id="btn-register" class="btn btn-primary btn-full btn-lg"
+          style="margin-top: var(--spacing-lg);">
+          Registrarse
+        </button>
+
+      </form>
+
+      <div class="register-footer" style="margin-top: var(--spacing-xl);">
+        <p>¿Ya tienes cuenta? <a href="./login.html" id="link-login">Inicia sesión aquí</a></p>
+      </div>
+
+    </div>
+
+  <script type="module">
+    import { register, redirectIfAuthenticated } from '../js/auth.js';
+
+    redirectIfAuthenticated();
+
+    const form            = document.getElementById('register-form');
+    const nombreInput     = document.getElementById('nombre');
+    const emailInput      = document.getElementById('email');
+    const passwordInput   = document.getElementById('password');
+    const confirmInput    = document.getElementById('confirm-password');
+    const btnRegister     = document.getElementById('btn-register');
+    const alertContainer  = document.getElementById('alert-container');
+    const alertMessage    = document.getElementById('alert-message');
+    const alertIcon       = document.getElementById('alert-icon');
+
+    function mostrarAlerta(mensaje, tipo = 'error') {
+      const iconos = { error: '⚠️', success: '✅', info: 'ℹ️' };
+      const clases = { error: 'alert-error', success: 'alert-success', info: 'alert-info' };
+      alertContainer.className = `alert ${clases[tipo]}`;
+      alertIcon.textContent = iconos[tipo];
+      alertMessage.textContent = mensaje;
+      alertContainer.style.display = 'flex';
+    }
+
+    function setLoading(cargando) {
+      btnRegister.disabled = cargando;
+      btnRegister.textContent = cargando ? 'Creando cuenta...' : 'Registrarse';
+    }
+
+    function traducirError(msg) {
+      if (msg.includes('User already registered')) return 'Ya existe una cuenta con ese correo.';
+      if (msg.includes('Password should be at least')) return 'La contraseña debe tener al menos 6 caracteres.';
+      if (msg.includes('invalid email')) return 'Ingresa un correo electrónico válido.';
+      return `Error: ${msg}`;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nombre   = nombreInput.value.trim();
+      const email    = emailInput.value.trim();
+      const password = passwordInput.value;
+      const confirm  = confirmInput.value;
+
+      if (!nombre || !email || !password || !confirm) {
+        mostrarAlerta('Por favor completa todos los campos.', 'error');
+        return;
+      }
+
+      if (password !== confirm) {
+        mostrarAlerta('Las contraseñas no coinciden.', 'error');
+        confirmInput.focus();
+        return;
+      }
+
+      if (password.length < 6) {
+        mostrarAlerta('La contraseña debe tener al menos 6 caracteres.', 'error');
+        passwordInput.focus();
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        await register(email, password, nombre);
+        mostrarAlerta('¡Cuenta creada con éxito! Redirigiendo al login...', 'success');
+        setTimeout(() => { window.location.href = './login.html'; }, 1500);
+      } catch (error) {
+        console.error('Error de registro:', error);
+        mostrarAlerta(traducirError(error.message), 'error');
+        setLoading(false);
+      }
+    });
+  </script>
+
+</body>
+</html>
