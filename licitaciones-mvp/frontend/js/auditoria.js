@@ -61,14 +61,53 @@ export async function obtenerHistorialContrato(contratoId) {
     }
   }
 
+
+
   return historial;
+}
+
+/**
+ * Obtener el historial global de auditoría (para administradores).
+ */
+export async function obtenerHistorialGlobal(filtros = {}) {
+  let query = supabaseClient
+    .from('auditoria')
+    .select('*, contratos(titulo)', { count: 'exact' });
+
+  if (filtros.accion) {
+    query = query.eq('accion', filtros.accion);
+  }
+
+  query = query.order('created_at', { ascending: false });
+
+  const pagina = filtros.pagina || 1;
+  const porPagina = filtros.porPagina || 20;
+  const desde = (pagina - 1) * porPagina;
+  query = query.range(desde, desde + porPagina - 1);
+
+  const { data: historial, error, count } = await query;
+  if (error) throw error;
+
+  for (const entrada of historial) {
+    if (entrada.usuario_id) {
+      const { data: perfil } = await supabaseClient
+        .from('perfiles')
+        .select('nombre')
+        .eq('id', entrada.usuario_id)
+        .single();
+      if (perfil) entrada.perfiles = perfil;
+    }
+  }
+
+  return { data: historial, count };
 }
 
 /**
  * Formatear una entrada de auditoría para mostrar al usuario.
  */
 export function formatearEntradaAuditoria(entrada) {
-  const fecha = new Date(entrada.timestamp).toLocaleString('es-MX', {
+  const ts = entrada.timestamp || entrada.created_at;
+  const fecha = new Date(ts.endsWith('Z') ? ts : ts + 'Z').toLocaleString('es-MX', {
     year: 'numeric', month: 'short', day: 'numeric',
     hour: '2-digit', minute: '2-digit'
   });

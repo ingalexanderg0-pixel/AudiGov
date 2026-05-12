@@ -235,6 +235,21 @@
         const btnDesc = document.getElementById('btn-descargar');
         btnDesc.href = c.archivo_url;
         btnDesc.style.display = 'inline-flex';
+        
+        btnDesc.onclick = async () => {
+          try {
+            const user = await requireAuth();
+            await registrarAccion({
+              contrato_id: c.id,
+              usuario_id: user.id,
+              accion: ACCIONES.DESCARGAR,
+              descripcion: `Documento PDF descargado o visualizado`
+            });
+            await cargarAuditoria(c.id);
+          } catch (e) {
+            console.error('Error al registrar descarga:', e);
+          }
+        };
       }
     }
 
@@ -247,19 +262,31 @@
         if (!historial || historial.length === 0) {
           document.getElementById('audit-empty').style.display = 'block';
         } else {
-          trail.innerHTML = historial.map(entrada => `
-            <div class="audit-item">
+          trail.innerHTML = historial.map(entrada => {
+            let hashColor = 'var(--color-success-dark)';
+            let bgColor = 'transparent';
+            if (entrada.accion === 'VERIFICAR_HASH') {
+              if (entrada.descripcion.includes('ALERTA') || entrada.descripcion.includes('FALLIDA') || entrada.descripcion.includes('Fallo')) {
+                hashColor = 'var(--color-danger)';
+                bgColor = 'rgba(239, 68, 68, 0.05)';
+              } else {
+                bgColor = 'rgba(16, 185, 129, 0.05)';
+              }
+            }
+
+            return `
+            <div class="audit-item" style="background-color: ${bgColor}; padding: var(--spacing-sm); border-radius: var(--radius-md);">
               <div class="audit-icon">${{ CREAR:'✅', MODIFICAR:'✏️', ELIMINAR:'🗑️', VER:'👁️', DESCARGAR:'📥', VERIFICAR_HASH:'🔐' }[entrada.accion] || '📋'}</div>
               <div class="audit-content">
                 <div class="audit-action">${entrada.descripcion}</div>
                 <div class="audit-time">
                   ${entrada.perfiles?.nombre || entrada.perfiles?.email || 'Usuario'} —
-                  ${new Date(entrada.created_at || entrada.timestamp).toLocaleString('es-MX', { year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' })}
+                  ${new Date((entrada.created_at || entrada.timestamp).endsWith('Z') ? (entrada.created_at || entrada.timestamp) : (entrada.created_at || entrada.timestamp) + 'Z').toLocaleString('es-MX', { year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' })}
                 </div>
-                ${entrada.hash_resultante ? `<div class="text-xs text-mono" style="margin-top:4px; color: var(--color-success-dark);">Hash: ${entrada.hash_resultante.slice(0, 24)}...</div>` : ''}
+                ${entrada.hash_resultante ? `<div class="text-xs text-mono" style="margin-top:4px; color: ${hashColor};">Hash: ${entrada.hash_resultante.slice(0, 24)}...</div>` : ''}
               </div>
             </div>
-          `).join('');
+          `}).join('');
           trail.style.display = 'flex';
         }
       } catch (err) {
@@ -293,8 +320,22 @@
         if (!archivo) return;
         try {
           const hashEsperado = document.getElementById('contrato-hash').textContent;
-          const { verificarIntegridad: verify } = await import('../js/hash.js');
+          const { verificarIntegridad: verify, generarHashArchivo } = await import('../js/hash.js');
           const integro = await verify(archivo, hashEsperado);
+          
+          const hashReal = await generarHashArchivo(archivo);
+          const user = await requireAuth();
+          
+          await registrarAccion({
+            contrato_id: contratoId,
+            usuario_id: user.id,
+            accion: ACCIONES.VERIFICAR_HASH,
+            descripcion: integro ? 'Verificación de hash exitosa' : 'ALERTA: Fallo de integridad (Hash modificado)',
+            hash_resultado: hashReal
+          });
+          
+          await cargarAuditoria(contratoId);
+
           alert(integro
             ? '✅ El documento es auténtico. El hash coincide perfectamente.'
             : '⚠️ ALERTA: El documento fue modificado. El hash NO coincide.'

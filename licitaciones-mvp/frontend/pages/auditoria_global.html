@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auditoría Global — LICITAPP</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <!-- ⚡ Anti-FOUC para proteger la ruta de Admin -->
+  <style>
+    html:not(.is-admin) body { display: none !important; }
+  </style>
+  <script>if(localStorage.getItem('licitapp_role')==='admin')document.documentElement.classList.add('is-admin');</script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="admin-layout">
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation">
+    <div class="navbar-inner">
+      <a href="./dashboard.html" class="navbar-brand">
+        <div class="navbar-brand-logo">🏛️</div>
+        <span class="navbar-brand-name">LICITAPP</span>
+      </a>
+      <div class="navbar-nav">
+        <a href="./dashboard.html" class="nav-link">Dashboard</a>
+        <a href="./contratos.html" class="nav-link">Contratos</a>
+        <a href="./admin.html" class="nav-link admin-only">Admin</a>
+      </div>
+      <div class="navbar-actions">
+        <div id="user-avatar" class="user-avatar">?</div>
+        <button id="btn-logout" class="btn btn-ghost btn-sm">Salir</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="admin-main" style="padding: var(--spacing-2xl) var(--spacing-lg); max-width: 1200px; margin: 0 auto;">
+    
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: var(--spacing-xl); flex-wrap:wrap; gap: var(--spacing-md);">
+      <div>
+        <h1 class="page-title">Panel de Auditoría Global</h1>
+        <p class="text-muted">Registro inmutable de todas las acciones del sistema</p>
+      </div>
+      <div style="display:flex; gap: var(--spacing-sm);">
+        <select id="filtro-accion" class="input" style="padding: 0.5rem; max-width: 200px;">
+          <option value="">Todas las Acciones</option>
+          <option value="CREAR">CREAR</option>
+          <option value="MODIFICAR">MODIFICAR</option>
+          <option value="ELIMINAR">ELIMINAR</option>
+          <option value="VER">VER</option>
+          <option value="DESCARGAR">DESCARGAR</option>
+          <option value="VERIFICAR_HASH">VERIFICAR HASH</option>
+        </select>
+        <button id="btn-filtrar" class="btn btn-secondary">Filtrar</button>
+      </div>
+    </div>
+
+    <div class="table-container animate-in">
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Usuario</th>
+            <th>Acción</th>
+            <th>Contrato / Hash Resultante</th>
+          </tr>
+        </thead>
+        <tbody id="audit-table-body">
+          <!-- Skeletons iniciales -->
+          <tr><td colspan="4" style="padding:0;"><div class="skeleton" style="height:60px; width:100%; border-radius:0;"></div></td></tr>
+          <tr><td colspan="4" style="padding:0;"><div class="skeleton" style="height:60px; width:100%; border-radius:0;"></div></td></tr>
+          <tr><td colspan="4" style="padding:0;"><div class="skeleton" style="height:60px; width:100%; border-radius:0;"></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--spacing-lg);">
+      <p class="text-sm text-muted" id="audit-count">Cargando...</p>
+      <div style="display: flex; gap: var(--spacing-sm);">
+        <button id="btn-prev" class="btn btn-secondary btn-sm" disabled>Anterior</button>
+        <button id="btn-next" class="btn btn-secondary btn-sm" disabled>Siguiente</button>
+      </div>
+    </div>
+
+  </main>
+
+  <script type="module">
+    import { requireAuth, getUserProfile, logout } from '../js/auth.js';
+    import { obtenerHistorialGlobal } from '../js/auditoria.js';
+
+    let currentPage = 1;
+    let currentFilter = '';
+
+    async function init() {
+      try {
+        const user = await requireAuth();
+        const profile = await getUserProfile(user.id);
+        
+        if (profile?.rol !== 'admin') {
+          window.location.href = './dashboard.html';
+          return;
+        }
+
+        document.getElementById('user-avatar').textContent = 
+          (profile?.nombre || user.email).charAt(0).toUpperCase();
+
+        await cargarPagina(1);
+
+      } catch (err) {
+        if (err.message !== 'No autenticado') {
+          console.error('Error al iniciar auditoría global:', err);
+          alert('Hubo un error al cargar la auditoría');
+        }
+      }
+    }
+
+    async function cargarPagina(pagina) {
+      currentPage = pagina;
+      const tbody = document.getElementById('audit-table-body');
+      
+      try {
+        const { data, count } = await obtenerHistorialGlobal({
+          pagina: currentPage,
+          porPagina: 15,
+          accion: currentFilter
+        });
+
+        document.getElementById('audit-count').textContent = 
+          `${count} registro${count !== 1 ? 's' : ''} en total`;
+
+        document.getElementById('btn-prev').disabled = currentPage === 1;
+        document.getElementById('btn-next').disabled = (currentPage * 15) >= count;
+
+        if (!data || data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" class="text-center text-muted" style="padding:var(--spacing-xl);">No hay registros de auditoría</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = data.map(entrada => {
+          const icono = { CREAR:'✅', MODIFICAR:'✏️', ELIMINAR:'🗑️', VER:'👁️', DESCARGAR:'📥', VERIFICAR_HASH:'🔐' }[entrada.accion] || '📋';
+          let bgColor = 'transparent';
+          if (entrada.accion === 'VERIFICAR_HASH') {
+            bgColor = entrada.descripcion.includes('excitosa') || entrada.descripcion.includes('exitosa') 
+              ? 'rgba(16, 185, 129, 0.05)' 
+              : 'rgba(239, 68, 68, 0.05)';
+          }
+
+          return `
+          <tr style="background-color: ${bgColor}">
+            <td style="white-space: nowrap;">
+              ${new Date(entrada.created_at.endsWith('Z') ? entrada.created_at : entrada.created_at + 'Z').toLocaleString('es-MX', { year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' })}
+            </td>
+            <td>
+              <strong>${entrada.perfiles?.nombre || 'Usuario Desconocido'}</strong><br>
+              <span class="text-xs text-muted">${entrada.perfiles?.email || ''}</span>
+            </td>
+            <td>
+              <span style="display:inline-flex; align-items:center; gap:4px;">
+                ${icono} <strong>${entrada.accion}</strong>
+              </span><br>
+              <span class="text-xs text-muted">${entrada.descripcion}</span>
+            </td>
+            <td>
+              ${entrada.contratos?.titulo ? `<a href="./detalle.html#id=${entrada.contrato_id}" class="text-primary text-sm" style="text-decoration:none;">${entrada.contratos.titulo}</a><br>` : '<span class="text-muted text-sm">Contrato no especificado/eliminado</span><br>'}
+              ${entrada.hash_resultante ? `<span class="text-xs text-mono" style="color:var(--color-text-light);">Hash: ${entrada.hash_resultante.slice(0, 16)}...</span>` : ''}
+            </td>
+          </tr>
+        `}).join('');
+
+      } catch (err) {
+        console.error('Error al cargar historial:', err);
+        tbody.innerHTML = `<tr><td colspan="4" class="text-center text-danger">Error al cargar datos</td></tr>`;
+      }
+    }
+
+    document.getElementById('btn-filtrar').addEventListener('click', () => {
+      currentFilter = document.getElementById('filtro-accion').value;
+      cargarPagina(1);
+    });
+
+    document.getElementById('btn-prev').addEventListener('click', () => {
+      if (currentPage > 1) cargarPagina(currentPage - 1);
+    });
+
+    document.getElementById('btn-next').addEventListener('click', () => {
+      cargarPagina(currentPage + 1);
+    });
+
+    document.getElementById('btn-logout').addEventListener('click', async () => {
+      await logout();
+      window.location.href = './login.html';
+    });
+
+    init();
+  </script>
+
+  <!-- Transiciones -->
+  <script src="../js/transitions.js"></script>
+
+</body>
+</html>

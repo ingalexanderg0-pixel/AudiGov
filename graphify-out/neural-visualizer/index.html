@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neural Graph — AudiGov Architecture</title>
+  <meta name="description" content="Interactive neural network visualization of the AudiGov codebase architecture powered by Three.js WebGL." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ─── WebGL Canvas ─── -->
+  <canvas id="neural-canvas"></canvas>
+
+  <!-- ─── Loading Screen ─── -->
+  <div id="loading-screen">
+    <div class="loader-content">
+      <div class="loader-orb"></div>
+      <div class="loader-rings">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+      </div>
+      <h1 class="loader-title">NEURAL<span>GRAPH</span></h1>
+      <p class="loader-sub" data-i18n="loading.title">Initializing synaptic network...</p>
+      <div class="loader-bar"><div class="loader-bar-fill" id="loader-bar-fill"></div></div>
+      <span class="loader-pct" id="loader-pct">0%</span>
+    </div>
+  </div>
+
+  <!-- ─── HUD Top Bar ─── -->
+  <header id="hud-header">
+    <div class="hud-logo">
+      <span class="hud-dot"></span>
+      NEURAL<span>GRAPH</span>
+    </div>
+    <div class="hud-stats">
+      <div class="stat-chip">
+        <span class="stat-label" data-i18n="hud.nodes">NODES</span>
+        <span class="stat-val" id="node-count">—</span>
+      </div>
+      <div class="stat-chip">
+        <span class="stat-label" data-i18n="hud.edges">EDGES</span>
+        <span class="stat-val" id="edge-count">—</span>
+      </div>
+      <div class="stat-chip">
+        <span class="stat-label" data-i18n="hud.clusters">CLUSTERS</span>
+        <span class="stat-val" id="cluster-count">—</span>
+      </div>
+      <div class="stat-chip">
+        <span class="stat-label" data-i18n="hud.fps">FPS</span>
+        <span class="stat-val" id="fps-count">—</span>
+      </div>
+    </div>
+    <div class="hud-controls">
+      <button class="ctrl-btn" id="btn-reset"       data-i18n-title="hud.reset"       title="Reset Camera">⟳</button>
+      <button class="ctrl-btn" id="btn-autorotate"  data-i18n-title="hud.autorotate"  title="Auto Rotate">⊙</button>
+      <button class="ctrl-btn" id="btn-fullscreen"  data-i18n-title="hud.fullscreen"  title="Fullscreen">⤢</button>
+
+      <!-- ─── Language Selector ─── -->
+      <div id="lang-picker" class="lang-picker">
+        <button class="ctrl-btn lang-trigger" id="lang-trigger" title="Change Language">
+          <span class="lang-flag" id="lang-current-flag">🌐</span>
+          <span class="lang-code" id="lang-current-code">EN</span>
+          <span class="lang-caret">▾</span>
+        </button>
+        <div class="lang-dropdown" id="lang-dropdown">
+          <div class="lang-dropdown-header">Language / Idioma</div>
+          <button class="lang-option" data-lang="en"><span>🇺🇸</span> English</button>
+          <button class="lang-option" data-lang="es"><span>🇪🇸</span> Español</button>
+          <button class="lang-option" data-lang="pt"><span>🇧🇷</span> Português</button>
+          <button class="lang-option" data-lang="fr"><span>🇫🇷</span> Français</button>
+          <button class="lang-option" data-lang="it"><span>🇮🇹</span> Italiano</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── Search Bar ─── -->
+  <div id="search-container">
+    <div class="search-wrapper">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="search-input" data-i18n-placeholder="search.placeholder" placeholder="Search nodes..." autocomplete="off" spellcheck="false" />
+      <kbd class="search-shortcut">ESC</kbd>
+    </div>
+    <ul id="search-results"></ul>
+  </div>
+
+  <!-- ─── Filters ─── -->
+  <div id="filter-bar">
+    <span class="filter-label" data-i18n="filters.label">FILTER</span>
+    <button class="filter-btn active" data-filter="all"    data-i18n="filters.all">All</button>
+    <button class="filter-btn"        data-filter="code"   data-i18n="filters.code">Code</button>
+    <button class="filter-btn"        data-filter="config" data-i18n="filters.config">Config</button>
+    <button class="filter-btn"        data-filter="docs"   data-i18n="filters.docs">Docs</button>
+  </div>
+
+  <!-- ─── Tooltip ─── -->
+  <div id="node-tooltip">
+    <span id="tooltip-label"></span>
+    <span id="tooltip-type"></span>
+  </div>
+
+  <!-- ─── Info Panel (right sidebar) ─── -->
+  <aside id="info-panel">
+    <div class="panel-header">
+      <div class="panel-node-icon" id="panel-icon">◈</div>
+      <div class="panel-title-group">
+        <h2 id="panel-node-name">Select a Node</h2>
+        <span id="panel-node-type" class="panel-badge">—</span>
+      </div>
+      <button id="panel-close" data-i18n-title="panel.close" title="Close panel">✕</button>
+    </div>
+
+    <div class="panel-body">
+      <div class="panel-section">
+        <h3 data-i18n="panel.sourceFile">Source File</h3>
+        <p id="panel-source" class="mono-text">—</p>
+      </div>
+      <div class="panel-section">
+        <h3 data-i18n="panel.location">Location</h3>
+        <p id="panel-location" class="mono-text">—</p>
+      </div>
+      <div class="panel-section">
+        <h3 data-i18n="panel.community">Community / Cluster</h3>
+        <div id="panel-community"></div>
+      </div>
+      <div class="panel-section" id="section-outgoing">
+        <h3>
+          <span data-i18n="panel.outgoing">Outgoing Connections</span>
+          <span class="count-badge" id="out-count">0</span>
+        </h3>
+        <ul id="panel-outgoing" class="conn-list"></ul>
+      </div>
+      <div class="panel-section" id="section-incoming">
+        <h3>
+          <span data-i18n="panel.incoming">Incoming Connections</span>
+          <span class="count-badge" id="in-count">0</span>
+        </h3>
+        <ul id="panel-incoming" class="conn-list"></ul>
+      </div>
+    </div>
+
+    <div class="panel-footer">
+      <button class="panel-btn primary"   id="btn-focus"   data-i18n="panel.focusCamera">⊕ Focus Camera</button>
+      <button class="panel-btn secondary" id="btn-isolate" data-i18n="panel.isolateCluster">◎ Isolate Cluster</button>
+    </div>
+  </aside>
+
+  <!-- ─── Legend ─── -->
+  <div id="legend">
+    <div class="legend-title" data-i18n="legend.title">RELATION TYPES</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#00d9ff"></span> imports_from</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#7c3aed"></span> contains</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#f97316"></span> calls</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#10b981"></span> imports</div>
+  </div>
+
+  <!-- ─── Controls Help ─── -->
+  <div id="controls-help">
+    <span data-i18n="controls.help">🖱 Drag · Scroll Zoom · Click Select · Dbl-click Focus · ESC Reset</span>
+  </div>
+
+  <!-- ─── Three.js via importmap ─── -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

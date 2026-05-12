@@ -1,0 +1,173 @@
+{
+  "communities": {
+    "0": [
+      "js_auditoria_registraraccion",
+      "js_contratos_actualizarcontrato",
+      "js_contratos_crearcontrato",
+      "js_contratos_eliminarcontrato",
+      "js_contratos_listarcontratos",
+      "js_contratos_obtenercontrato",
+      "js_contratos_subirarchivopdf",
+      "licitaciones_mvp_frontend_js_contratos_js"
+    ],
+    "1": [
+      "js_auditoria_acciones",
+      "js_auditoria_formatearentradaauditoria",
+      "js_auditoria_obtenerhistorialcontrato",
+      "js_config_supabase_config",
+      "js_supabaseclient_supabaseclient",
+      "licitaciones_mvp_frontend_js_auditoria_js",
+      "licitaciones_mvp_frontend_js_config_js"
+    ],
+    "2": [
+      "js_hash_buffertohex",
+      "js_hash_formatearhash",
+      "js_hash_generarhasharchivo",
+      "js_hash_generarhashtexto",
+      "js_hash_verificarintegridad",
+      "licitaciones_mvp_frontend_js_hash_js"
+    ],
+    "3": [
+      "js_auth_login",
+      "js_auth_logout",
+      "js_auth_onauthstatechange",
+      "js_auth_register",
+      "licitaciones_mvp_frontend_js_auth_js"
+    ],
+    "4": [
+      "js_transitions_anchor",
+      "js_transitions_eslinkinterno",
+      "js_transitions_navegarcon",
+      "licitaciones_mvp_frontend_js_transitions_js"
+    ],
+    "5": [
+      "a_mjs",
+      "b_mjs"
+    ],
+    "6": [
+      "js_auth_getuserprofile",
+      "js_auth_isadmin"
+    ],
+    "7": [
+      "js_auth_requireadmin",
+      "js_auth_requireauth"
+    ],
+    "8": [
+      "js_auth_getcurrentuser",
+      "js_auth_redirectifauthenticated"
+    ]
+  },
+  "cohesion": {
+    "0": 0.43,
+    "1": 0.29,
+    "2": 0.53,
+    "3": 0.4,
+    "4": 0.5,
+    "5": 1.0,
+    "6": 1.0,
+    "7": 1.0,
+    "8": 1.0
+  },
+  "gods": [
+    {
+      "id": "js_auditoria_registraraccion",
+      "label": "registrarAccion()",
+      "degree": 5
+    },
+    {
+      "id": "js_hash_generarhasharchivo",
+      "label": "generarHashArchivo()",
+      "degree": 5
+    },
+    {
+      "id": "js_supabaseclient_supabaseclient",
+      "label": "supabaseClient",
+      "degree": 4
+    },
+    {
+      "id": "js_auth_getcurrentuser",
+      "label": "getCurrentUser()",
+      "degree": 3
+    },
+    {
+      "id": "js_auth_getuserprofile",
+      "label": "getUserProfile()",
+      "degree": 3
+    },
+    {
+      "id": "js_auth_requireauth",
+      "label": "requireAuth()",
+      "degree": 3
+    },
+    {
+      "id": "js_auth_requireadmin",
+      "label": "requireAdmin()",
+      "degree": 3
+    },
+    {
+      "id": "js_contratos_crearcontrato",
+      "label": "crearContrato()",
+      "degree": 3
+    },
+    {
+      "id": "js_contratos_eliminarcontrato",
+      "label": "eliminarContrato()",
+      "degree": 3
+    },
+    {
+      "id": "js_contratos_subirarchivopdf",
+      "label": "subirArchivoPDF()",
+      "degree": 3
+    }
+  ],
+  "surprises": [
+    {
+      "source": "actualizarContrato()",
+      "target": "registrarAccion()",
+      "source_files": [
+        "licitaciones-mvp/frontend/js/contratos.js",
+        "licitaciones-mvp/frontend/js/auditoria.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "peripheral node `actualizarContrato()` unexpectedly reaches hub `registrarAccion()`"
+    },
+    {
+      "source": "subirArchivoPDF()",
+      "target": "generarHashArchivo()",
+      "source_files": [
+        "licitaciones-mvp/frontend/js/contratos.js",
+        "licitaciones-mvp/frontend/js/hash.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "crearContrato()",
+      "target": "registrarAccion()",
+      "source_files": [
+        "licitaciones-mvp/frontend/js/contratos.js",
+        "licitaciones-mvp/frontend/js/auditoria.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "eliminarContrato()",
+      "target": "registrarAccion()",
+      "source_files": [
+        "licitaciones-mvp/frontend/js/contratos.js",
+        "licitaciones-mvp/frontend/js/auditoria.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}

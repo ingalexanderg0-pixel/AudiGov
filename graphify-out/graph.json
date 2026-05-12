@@ -1,0 +1,1812 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "a.mjs",
+      "file_type": "code",
+      "source_file": "a.mjs",
+      "source_location": "L1",
+      "id": "a_mjs",
+      "community": 9,
+      "norm_label": "a.mjs"
+    },
+    {
+      "label": "b.mjs",
+      "file_type": "code",
+      "source_file": "b.mjs",
+      "source_location": "L1",
+      "id": "b_mjs",
+      "community": 9,
+      "norm_label": "b.mjs"
+    },
+    {
+      "label": "auditoria.js",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auditoria.js",
+      "source_location": "L1",
+      "id": "licitaciones_mvp_frontend_js_auditoria_js",
+      "community": 4,
+      "norm_label": "auditoria.js"
+    },
+    {
+      "label": "ACCIONES",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auditoria.js",
+      "source_location": "L8",
+      "id": "js_auditoria_acciones",
+      "community": 4,
+      "norm_label": "acciones"
+    },
+    {
+      "label": "registrarAccion()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auditoria.js",
+      "source_location": "L21",
+      "id": "js_auditoria_registraraccion",
+      "community": 1,
+      "norm_label": "registraraccion()"
+    },
+    {
+      "label": "obtenerHistorialContrato()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auditoria.js",
+      "source_location": "L44",
+      "id": "js_auditoria_obtenerhistorialcontrato",
+      "community": 4,
+      "norm_label": "obtenerhistorialcontrato()"
+    },
+    {
+      "label": "obtenerHistorialGlobal()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auditoria.js",
+      "source_location": "L72",
+      "id": "js_auditoria_obtenerhistorialglobal",
+      "community": 4,
+      "norm_label": "obtenerhistorialglobal()"
+    },
+    {
+      "label": "formatearEntradaAuditoria()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auditoria.js",
+      "source_location": "L108",
+      "id": "js_auditoria_formatearentradaauditoria",
+      "community": 4,
+      "norm_label": "formatearentradaauditoria()"
+    },
+    {
+      "label": "auth.js",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L1",
+      "id": "licitaciones_mvp_frontend_js_auth_js",
+      "community": 2,
+      "norm_label": "auth.js"
+    },
+    {
+      "label": "login()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L27",
+      "id": "js_auth_login",
+      "community": 2,
+      "norm_label": "login()"
+    },
+    {
+      "label": "register()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L49",
+      "id": "js_auth_register",
+      "community": 2,
+      "norm_label": "register()"
+    },
+    {
+      "label": "logout()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L70",
+      "id": "js_auth_logout",
+      "community": 2,
+      "norm_label": "logout()"
+    },
+    {
+      "label": "getCurrentUser()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L86",
+      "id": "js_auth_getcurrentuser",
+      "community": 2,
+      "norm_label": "getcurrentuser()"
+    },
+    {
+      "label": "getUserProfile()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L99",
+      "id": "js_auth_getuserprofile",
+      "community": 2,
+      "norm_label": "getuserprofile()"
+    },
+    {
+      "label": "isAdmin()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L118",
+      "id": "js_auth_isadmin",
+      "community": 2,
+      "norm_label": "isadmin()"
+    },
+    {
+      "label": "requireAuth()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L139",
+      "id": "js_auth_requireauth",
+      "community": 2,
+      "norm_label": "requireauth()"
+    },
+    {
+      "label": "requireAdmin()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L158",
+      "id": "js_auth_requireadmin",
+      "community": 2,
+      "norm_label": "requireadmin()"
+    },
+    {
+      "label": "redirectIfAuthenticated()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L177",
+      "id": "js_auth_redirectifauthenticated",
+      "community": 2,
+      "norm_label": "redirectifauthenticated()"
+    },
+    {
+      "label": "onAuthStateChange()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L195",
+      "id": "js_auth_onauthstatechange",
+      "community": 2,
+      "norm_label": "onauthstatechange()"
+    },
+    {
+      "label": "config.js",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/config.js",
+      "source_location": "L1",
+      "id": "licitaciones_mvp_frontend_js_config_js",
+      "community": 4,
+      "norm_label": "config.js"
+    },
+    {
+      "label": "SUPABASE_CONFIG",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/config.js",
+      "source_location": "L15",
+      "id": "js_config_supabase_config",
+      "community": 4,
+      "norm_label": "supabase_config"
+    },
+    {
+      "label": "contratos.js",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L1",
+      "id": "licitaciones_mvp_frontend_js_contratos_js",
+      "community": 1,
+      "norm_label": "contratos.js"
+    },
+    {
+      "label": "listarContratos()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L31",
+      "id": "js_contratos_listarcontratos",
+      "community": 1,
+      "norm_label": "listarcontratos()"
+    },
+    {
+      "label": "obtenerContrato()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L66",
+      "id": "js_contratos_obtenercontrato",
+      "community": 1,
+      "norm_label": "obtenercontrato()"
+    },
+    {
+      "label": "crearContrato()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L106",
+      "id": "js_contratos_crearcontrato",
+      "community": 1,
+      "norm_label": "crearcontrato()"
+    },
+    {
+      "label": "actualizarContrato()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L155",
+      "id": "js_contratos_actualizarcontrato",
+      "community": 1,
+      "norm_label": "actualizarcontrato()"
+    },
+    {
+      "label": "eliminarContrato()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L189",
+      "id": "js_contratos_eliminarcontrato",
+      "community": 1,
+      "norm_label": "eliminarcontrato()"
+    },
+    {
+      "label": "subirArchivoPDF()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L220",
+      "id": "js_contratos_subirarchivopdf",
+      "community": 1,
+      "norm_label": "subirarchivopdf()"
+    },
+    {
+      "label": "hash.js",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L1",
+      "id": "licitaciones_mvp_frontend_js_hash_js",
+      "community": 1,
+      "norm_label": "hash.js"
+    },
+    {
+      "label": "generarHashArchivo()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L15",
+      "id": "js_hash_generarhasharchivo",
+      "community": 1,
+      "norm_label": "generarhasharchivo()"
+    },
+    {
+      "label": "generarHashTexto()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L33",
+      "id": "js_hash_generarhashtexto",
+      "community": 1,
+      "norm_label": "generarhashtexto()"
+    },
+    {
+      "label": "verificarIntegridad()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L47",
+      "id": "js_hash_verificarintegridad",
+      "community": 1,
+      "norm_label": "verificarintegridad()"
+    },
+    {
+      "label": "bufferToHex()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L57",
+      "id": "js_hash_buffertohex",
+      "community": 1,
+      "norm_label": "buffertohex()"
+    },
+    {
+      "label": "formatearHash()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L71",
+      "id": "js_hash_formatearhash",
+      "community": 1,
+      "norm_label": "formatearhash()"
+    },
+    {
+      "label": "supabaseClient.js",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/supabaseClient.js",
+      "source_location": "L1",
+      "id": "licitaciones_mvp_frontend_js_supabaseclient_js",
+      "community": 4,
+      "norm_label": "supabaseclient.js"
+    },
+    {
+      "label": "supabaseClient",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/supabaseClient.js",
+      "source_location": "L32",
+      "id": "js_supabaseclient_supabaseclient",
+      "community": 4,
+      "norm_label": "supabaseclient"
+    },
+    {
+      "label": "transitions.js",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/transitions.js",
+      "source_location": "L1",
+      "id": "licitaciones_mvp_frontend_js_transitions_js",
+      "community": 8,
+      "norm_label": "transitions.js"
+    },
+    {
+      "label": "esLinkInterno()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/transitions.js",
+      "source_location": "L19",
+      "id": "js_transitions_eslinkinterno",
+      "community": 8,
+      "norm_label": "eslinkinterno()"
+    },
+    {
+      "label": "navegarCon()",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/transitions.js",
+      "source_location": "L34",
+      "id": "js_transitions_navegarcon",
+      "community": 8,
+      "norm_label": "navegarcon()"
+    },
+    {
+      "label": "anchor",
+      "file_type": "code",
+      "source_file": "licitaciones-mvp/frontend/js/transitions.js",
+      "source_location": "L46",
+      "id": "js_transitions_anchor",
+      "community": 8,
+      "norm_label": "anchor"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L1",
+      "id": "licitaciones_mvp_readme_md",
+      "community": 5,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "\ud83c\udfdb\ufe0f Sistema de Transparencia en Licitaciones",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L1",
+      "id": "licitaciones_mvp_readme_sistema_de_transparencia_en_licitaciones",
+      "community": 5,
+      "norm_label": "\ud83c\udfdb\ufe0f sistema de transparencia en licitaciones"
+    },
+    {
+      "label": "\ud83d\ude80 Tecnolog\u00edas",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L5",
+      "id": "licitaciones_mvp_readme_tecnolog_as",
+      "community": 5,
+      "norm_label": "\ud83d\ude80 tecnologias"
+    },
+    {
+      "label": "\ud83d\udce6 Instalaci\u00f3n",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L10",
+      "id": "licitaciones_mvp_readme_instalaci_n",
+      "community": 5,
+      "norm_label": "\ud83d\udce6 instalacion"
+    },
+    {
+      "label": "\ud83d\udc65 Tipos de Usuario",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L15",
+      "id": "licitaciones_mvp_readme_tipos_de_usuario",
+      "community": 5,
+      "norm_label": "\ud83d\udc65 tipos de usuario"
+    },
+    {
+      "label": "\ud83d\uddc2\ufe0f Estructura de la Base de Datos",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L19",
+      "id": "licitaciones_mvp_readme_estructura_de_la_base_de_datos",
+      "community": 5,
+      "norm_label": "\ud83d\uddc2\ufe0f estructura de la base de datos"
+    },
+    {
+      "label": "\ud83c\udfaf Funcionalidades Principales",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L24",
+      "id": "licitaciones_mvp_readme_funcionalidades_principales",
+      "community": 5,
+      "norm_label": "\ud83c\udfaf funcionalidades principales"
+    },
+    {
+      "label": "\ud83d\udd10 Seguridad",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L31",
+      "id": "licitaciones_mvp_readme_seguridad",
+      "community": 5,
+      "norm_label": "\ud83d\udd10 seguridad"
+    },
+    {
+      "label": "arquitectura.md",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L1",
+      "id": "licitaciones_mvp_docs_arquitectura_md",
+      "community": 3,
+      "norm_label": "arquitectura.md"
+    },
+    {
+      "label": "Arquitectura del Sistema - LICITAPP",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L1",
+      "id": "docs_arquitectura_arquitectura_del_sistema_licitapp",
+      "community": 3,
+      "norm_label": "arquitectura del sistema - licitapp"
+    },
+    {
+      "label": "1. Visi\u00f3n General",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L3",
+      "id": "docs_arquitectura_1_visi_n_general",
+      "community": 3,
+      "norm_label": "1. vision general"
+    },
+    {
+      "label": "2. Tecnolog\u00edas Core",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L6",
+      "id": "docs_arquitectura_2_tecnolog_as_core",
+      "community": 3,
+      "norm_label": "2. tecnologias core"
+    },
+    {
+      "label": "3. Seguridad y Confianza",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L11",
+      "id": "docs_arquitectura_3_seguridad_y_confianza",
+      "community": 3,
+      "norm_label": "3. seguridad y confianza"
+    },
+    {
+      "label": "4. Estructura de Datos (Supabase Schema Propuesto)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L17",
+      "id": "docs_arquitectura_4_estructura_de_datos_supabase_schema_propuesto",
+      "community": 3,
+      "norm_label": "4. estructura de datos (supabase schema propuesto)"
+    },
+    {
+      "label": "Tabla `perfiles`",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L19",
+      "id": "docs_arquitectura_tabla_perfiles",
+      "community": 3,
+      "norm_label": "tabla `perfiles`"
+    },
+    {
+      "label": "Tabla `contratos`",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L26",
+      "id": "docs_arquitectura_tabla_contratos",
+      "community": 3,
+      "norm_label": "tabla `contratos`"
+    },
+    {
+      "label": "Tabla `auditoria`",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L42",
+      "id": "docs_arquitectura_tabla_auditoria",
+      "community": 3,
+      "norm_label": "tabla `auditoria`"
+    },
+    {
+      "label": "5. Decisiones de Dise\u00f1o (ADR)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L53",
+      "id": "docs_arquitectura_5_decisiones_de_dise_o_adr",
+      "community": 3,
+      "norm_label": "5. decisiones de diseno (adr)"
+    },
+    {
+      "label": "Documentacion_Tecnica_MVP.md",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L1",
+      "id": "licitaciones_mvp_docs_documentacion_tecnica_mvp_md",
+      "community": 0,
+      "norm_label": "documentacion_tecnica_mvp.md"
+    },
+    {
+      "label": "Documentaci\u00f3n T\u00e9cnica: MVP Sistema de Transparencia AudiGov",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L1",
+      "id": "docs_documentacion_tecnica_mvp_documentaci_n_t_cnica_mvp_sistema_de_transparencia_audigov",
+      "community": 0,
+      "norm_label": "documentacion tecnica: mvp sistema de transparencia audigov"
+    },
+    {
+      "label": "1. Arquitectura y Tecnolog\u00edas Base",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L7",
+      "id": "docs_documentacion_tecnica_mvp_1_arquitectura_y_tecnolog_as_base",
+      "community": 0,
+      "norm_label": "1. arquitectura y tecnologias base"
+    },
+    {
+      "label": "Stack Tecnol\u00f3gico",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L11",
+      "id": "docs_documentacion_tecnica_mvp_stack_tecnol_gico",
+      "community": 0,
+      "norm_label": "stack tecnologico"
+    },
+    {
+      "label": "Justificaci\u00f3n de Tecnolog\u00edas",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L18",
+      "id": "docs_documentacion_tecnica_mvp_justificaci_n_de_tecnolog_as",
+      "community": 0,
+      "norm_label": "justificacion de tecnologias"
+    },
+    {
+      "label": "2. Estructura del Proyecto",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L24",
+      "id": "docs_documentacion_tecnica_mvp_2_estructura_del_proyecto",
+      "community": 0,
+      "norm_label": "2. estructura del proyecto"
+    },
+    {
+      "label": "code:text (/licitaciones-mvp)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L28",
+      "id": "docs_documentacion_tecnica_mvp_codeblock_1",
+      "community": 0,
+      "norm_label": "code:text (/licitaciones-mvp)"
+    },
+    {
+      "label": "El archivo `config.js` y `.env`",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L60",
+      "id": "docs_documentacion_tecnica_mvp_el_archivo_config_js_y_env",
+      "community": 0,
+      "norm_label": "el archivo `config.js` y `.env`"
+    },
+    {
+      "label": "3. L\u00f3gica de Interacci\u00f3n y M\u00f3dulos Core",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L65",
+      "id": "docs_documentacion_tecnica_mvp_3_l_gica_de_interacci_n_y_m_dulos_core",
+      "community": 7,
+      "norm_label": "3. logica de interaccion y modulos core"
+    },
+    {
+      "label": "3.1. Conexi\u00f3n de Supabase (`supabaseClient.js`)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L67",
+      "id": "docs_documentacion_tecnica_mvp_3_1_conexi_n_de_supabase_supabaseclient_js",
+      "community": 7,
+      "norm_label": "3.1. conexion de supabase (`supabaseclient.js`)"
+    },
+    {
+      "label": "3.2. M\u00f3dulo de Autenticaci\u00f3n y Roles (`auth.js`)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L70",
+      "id": "docs_documentacion_tecnica_mvp_3_2_m_dulo_de_autenticaci_n_y_roles_auth_js",
+      "community": 7,
+      "norm_label": "3.2. modulo de autenticacion y roles (`auth.js`)"
+    },
+    {
+      "label": "3.3. L\u00f3gica de Protecci\u00f3n de Interfaz (Anti-FOUC)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L76",
+      "id": "docs_documentacion_tecnica_mvp_3_3_l_gica_de_protecci_n_de_interfaz_anti_fouc",
+      "community": 7,
+      "norm_label": "3.3. logica de proteccion de interfaz (anti-fouc)"
+    },
+    {
+      "label": "3.4. Motor de Integridad y Hashes (`hash.js`)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L84",
+      "id": "docs_documentacion_tecnica_mvp_3_4_motor_de_integridad_y_hashes_hash_js",
+      "community": 7,
+      "norm_label": "3.4. motor de integridad y hashes (`hash.js`)"
+    },
+    {
+      "label": "3.5. Trazabilidad y Auditor\u00eda (`auditoria.js`)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L90",
+      "id": "docs_documentacion_tecnica_mvp_3_5_trazabilidad_y_auditor_a_auditoria_js",
+      "community": 7,
+      "norm_label": "3.5. trazabilidad y auditoria (`auditoria.js`)"
+    },
+    {
+      "label": "4. Flujos de Trabajo (Data Flow)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L95",
+      "id": "docs_documentacion_tecnica_mvp_4_flujos_de_trabajo_data_flow",
+      "community": 0,
+      "norm_label": "4. flujos de trabajo (data flow)"
+    },
+    {
+      "label": "Flujo de Subida de Contratos",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L97",
+      "id": "docs_documentacion_tecnica_mvp_flujo_de_subida_de_contratos",
+      "community": 0,
+      "norm_label": "flujo de subida de contratos"
+    },
+    {
+      "label": "Flujo de Consulta P\u00fablica (Ciudadanos)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L105",
+      "id": "docs_documentacion_tecnica_mvp_flujo_de_consulta_p_blica_ciudadanos",
+      "community": 0,
+      "norm_label": "flujo de consulta publica (ciudadanos)"
+    },
+    {
+      "label": "5. Experiencia de Usuario (UX) y Animaciones",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L112",
+      "id": "docs_documentacion_tecnica_mvp_5_experiencia_de_usuario_ux_y_animaciones",
+      "community": 0,
+      "norm_label": "5. experiencia de usuario (ux) y animaciones"
+    },
+    {
+      "label": "Sistema de Navegaci\u00f3n (`transitions.js`)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L116",
+      "id": "docs_documentacion_tecnica_mvp_sistema_de_navegaci_n_transitions_js",
+      "community": 0,
+      "norm_label": "sistema de navegacion (`transitions.js`)"
+    },
+    {
+      "label": "Esqueletos de Carga (Skeleton Loading)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L124",
+      "id": "docs_documentacion_tecnica_mvp_esqueletos_de_carga_skeleton_loading",
+      "community": 0,
+      "norm_label": "esqueletos de carga (skeleton loading)"
+    },
+    {
+      "label": "Microinteracciones",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L127",
+      "id": "docs_documentacion_tecnica_mvp_microinteracciones",
+      "community": 0,
+      "norm_label": "microinteracciones"
+    },
+    {
+      "label": "Plan_Auditorias.md",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Plan_Auditorias.md",
+      "source_location": "L1",
+      "id": "licitaciones_mvp_docs_plan_auditorias_md",
+      "community": 6,
+      "norm_label": "plan_auditorias.md"
+    },
+    {
+      "label": "Plan de Acci\u00f3n: Finalizaci\u00f3n del Sistema de Auditor\u00eda Inmutable",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Plan_Auditorias.md",
+      "source_location": "L1",
+      "id": "docs_plan_auditorias_plan_de_acci_n_finalizaci_n_del_sistema_de_auditor_a_inmutable",
+      "community": 6,
+      "norm_label": "plan de accion: finalizacion del sistema de auditoria inmutable"
+    },
+    {
+      "label": "Fase 1: Completar la Cobertura de Eventos de Trazabilidad",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Plan_Auditorias.md",
+      "source_location": "L5",
+      "id": "docs_plan_auditorias_fase_1_completar_la_cobertura_de_eventos_de_trazabilidad",
+      "community": 6,
+      "norm_label": "fase 1: completar la cobertura de eventos de trazabilidad"
+    },
+    {
+      "label": "Fase 2: Implementaci\u00f3n del Panel Global de Auditor\u00eda (Rol Admin)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Plan_Auditorias.md",
+      "source_location": "L17",
+      "id": "docs_plan_auditorias_fase_2_implementaci_n_del_panel_global_de_auditor_a_rol_admin",
+      "community": 6,
+      "norm_label": "fase 2: implementacion del panel global de auditoria (rol admin)"
+    },
+    {
+      "label": "Fase 3: Enriquecimiento de la UI/UX del Historial",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Plan_Auditorias.md",
+      "source_location": "L28",
+      "id": "docs_plan_auditorias_fase_3_enriquecimiento_de_la_ui_ux_del_historial",
+      "community": 6,
+      "norm_label": "fase 3: enriquecimiento de la ui/ux del historial"
+    },
+    {
+      "label": "Fase 4: Blindaje de Inmutabilidad en Base de Datos (Seguridad RLS)",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Plan_Auditorias.md",
+      "source_location": "L36",
+      "id": "docs_plan_auditorias_fase_4_blindaje_de_inmutabilidad_en_base_de_datos_seguridad_rls",
+      "community": 6,
+      "norm_label": "fase 4: blindaje de inmutabilidad en base de datos (seguridad rls)"
+    },
+    {
+      "label": "Resumen de Pr\u00f3ximos Pasos T\u00e9cnicos para Antigravity",
+      "file_type": "document",
+      "source_file": "licitaciones-mvp/docs/Plan_Auditorias.md",
+      "source_location": "L46",
+      "id": "docs_plan_auditorias_resumen_de_pr_ximos_pasos_t_cnicos_para_antigravity",
+      "community": 6,
+      "norm_label": "resumen de proximos pasos tecnicos para antigravity"
+    }
+  ],
+  "links": [
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "b.mjs",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "b_mjs",
+      "target": "a_mjs"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auditoria.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auditoria_js",
+      "target": "licitaciones_mvp_frontend_js_supabaseclient_js"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auditoria.js",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auditoria_js",
+      "target": "js_auditoria_acciones"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auditoria.js",
+      "source_location": "L21",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auditoria_js",
+      "target": "js_auditoria_registraraccion"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auditoria.js",
+      "source_location": "L44",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auditoria_js",
+      "target": "js_auditoria_obtenerhistorialcontrato"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auditoria.js",
+      "source_location": "L70",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auditoria_js",
+      "target": "js_auditoria_obtenerhistorialglobal"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auditoria.js",
+      "source_location": "L70",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auditoria_js",
+      "target": "js_auditoria_formatearentradaauditoria"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_contratos_js",
+      "target": "licitaciones_mvp_frontend_js_auditoria_js"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auditoria.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auditoria_js",
+      "target": "js_supabaseclient_supabaseclient"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_contratos_js",
+      "target": "js_auditoria_registraraccion"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L132",
+      "weight": 1.0,
+      "source": "js_contratos_crearcontrato",
+      "target": "js_auditoria_registraraccion"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L166",
+      "weight": 1.0,
+      "source": "js_contratos_actualizarcontrato",
+      "target": "js_auditoria_registraraccion"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L194",
+      "weight": 1.0,
+      "source": "js_contratos_eliminarcontrato",
+      "target": "js_auditoria_registraraccion"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auth_js",
+      "target": "licitaciones_mvp_frontend_js_supabaseclient_js"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auth_js",
+      "target": "js_auth_login"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L49",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auth_js",
+      "target": "js_auth_register"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L70",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auth_js",
+      "target": "js_auth_logout"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L86",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auth_js",
+      "target": "js_auth_getcurrentuser"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L99",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auth_js",
+      "target": "js_auth_getuserprofile"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L118",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auth_js",
+      "target": "js_auth_isadmin"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L139",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auth_js",
+      "target": "js_auth_requireauth"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L158",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auth_js",
+      "target": "js_auth_requireadmin"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L177",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auth_js",
+      "target": "js_auth_redirectifauthenticated"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L195",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auth_js",
+      "target": "js_auth_onauthstatechange"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_auth_js",
+      "target": "js_supabaseclient_supabaseclient"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L140",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "js_auth_requireauth",
+      "target": "js_auth_getcurrentuser"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L178",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "js_auth_redirectifauthenticated",
+      "target": "js_auth_getcurrentuser"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L120",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "js_auth_isadmin",
+      "target": "js_auth_getuserprofile"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L160",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "js_auth_requireadmin",
+      "target": "js_auth_getuserprofile"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/auth.js",
+      "source_location": "L159",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "js_auth_requireadmin",
+      "target": "js_auth_requireauth"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/config.js",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_config_js",
+      "target": "js_config_supabase_config"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/supabaseClient.js",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_supabaseclient_js",
+      "target": "licitaciones_mvp_frontend_js_config_js"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/supabaseClient.js",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "js_supabaseclient_supabaseclient",
+      "target": "licitaciones_mvp_frontend_js_config_js"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_contratos_js",
+      "target": "licitaciones_mvp_frontend_js_supabaseclient_js"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_contratos_js",
+      "target": "licitaciones_mvp_frontend_js_hash_js"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_contratos_js",
+      "target": "js_hash_generarhasharchivo"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_contratos_js",
+      "target": "js_contratos_listarcontratos"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L66",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_contratos_js",
+      "target": "js_contratos_obtenercontrato"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L106",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_contratos_js",
+      "target": "js_contratos_crearcontrato"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L155",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_contratos_js",
+      "target": "js_contratos_actualizarcontrato"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L189",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_contratos_js",
+      "target": "js_contratos_eliminarcontrato"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L220",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_contratos_js",
+      "target": "js_contratos_subirarchivopdf"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_contratos_js",
+      "target": "js_supabaseclient_supabaseclient"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L191",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "js_contratos_eliminarcontrato",
+      "target": "js_contratos_obtenercontrato"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L112",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "js_contratos_crearcontrato",
+      "target": "js_contratos_subirarchivopdf"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "licitaciones-mvp/frontend/js/contratos.js",
+      "source_location": "L227",
+      "weight": 1.0,
+      "source": "js_contratos_subirarchivopdf",
+      "target": "js_hash_generarhasharchivo"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_hash_js",
+      "target": "js_hash_generarhasharchivo"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_hash_js",
+      "target": "js_hash_generarhashtexto"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L47",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_hash_js",
+      "target": "js_hash_verificarintegridad"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L57",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_hash_js",
+      "target": "js_hash_buffertohex"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L71",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_hash_js",
+      "target": "js_hash_formatearhash"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "js_hash_generarhasharchivo",
+      "target": "js_hash_buffertohex"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L48",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "js_hash_verificarintegridad",
+      "target": "js_hash_generarhasharchivo"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/hash.js",
+      "source_location": "L37",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "js_hash_generarhashtexto",
+      "target": "js_hash_buffertohex"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/supabaseClient.js",
+      "source_location": "L32",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_supabaseclient_js",
+      "target": "js_supabaseclient_supabaseclient"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/transitions.js",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_transitions_js",
+      "target": "js_transitions_eslinkinterno"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/transitions.js",
+      "source_location": "L34",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_transitions_js",
+      "target": "js_transitions_navegarcon"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/frontend/js/transitions.js",
+      "source_location": "L46",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_frontend_js_transitions_js",
+      "target": "js_transitions_anchor"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_readme_md",
+      "target": "licitaciones_mvp_readme_sistema_de_transparencia_en_licitaciones"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_readme_sistema_de_transparencia_en_licitaciones",
+      "target": "licitaciones_mvp_readme_tecnolog_as"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_readme_sistema_de_transparencia_en_licitaciones",
+      "target": "licitaciones_mvp_readme_instalaci_n"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_readme_sistema_de_transparencia_en_licitaciones",
+      "target": "licitaciones_mvp_readme_tipos_de_usuario"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_readme_sistema_de_transparencia_en_licitaciones",
+      "target": "licitaciones_mvp_readme_estructura_de_la_base_de_datos"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_readme_sistema_de_transparencia_en_licitaciones",
+      "target": "licitaciones_mvp_readme_funcionalidades_principales"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/README.md",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_readme_sistema_de_transparencia_en_licitaciones",
+      "target": "licitaciones_mvp_readme_seguridad"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_docs_arquitectura_md",
+      "target": "docs_arquitectura_arquitectura_del_sistema_licitapp"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_arquitectura_arquitectura_del_sistema_licitapp",
+      "target": "docs_arquitectura_1_visi_n_general"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_arquitectura_arquitectura_del_sistema_licitapp",
+      "target": "docs_arquitectura_2_tecnolog_as_core"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_arquitectura_arquitectura_del_sistema_licitapp",
+      "target": "docs_arquitectura_3_seguridad_y_confianza"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_arquitectura_arquitectura_del_sistema_licitapp",
+      "target": "docs_arquitectura_4_estructura_de_datos_supabase_schema_propuesto"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L53",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_arquitectura_arquitectura_del_sistema_licitapp",
+      "target": "docs_arquitectura_5_decisiones_de_dise_o_adr"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_arquitectura_4_estructura_de_datos_supabase_schema_propuesto",
+      "target": "docs_arquitectura_tabla_perfiles"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_arquitectura_4_estructura_de_datos_supabase_schema_propuesto",
+      "target": "docs_arquitectura_tabla_contratos"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/arquitectura.md",
+      "source_location": "L42",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_arquitectura_4_estructura_de_datos_supabase_schema_propuesto",
+      "target": "docs_arquitectura_tabla_auditoria"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_docs_documentacion_tecnica_mvp_md",
+      "target": "docs_documentacion_tecnica_mvp_documentaci_n_t_cnica_mvp_sistema_de_transparencia_audigov"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_documentaci_n_t_cnica_mvp_sistema_de_transparencia_audigov",
+      "target": "docs_documentacion_tecnica_mvp_1_arquitectura_y_tecnolog_as_base"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_documentaci_n_t_cnica_mvp_sistema_de_transparencia_audigov",
+      "target": "docs_documentacion_tecnica_mvp_2_estructura_del_proyecto"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L65",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_documentaci_n_t_cnica_mvp_sistema_de_transparencia_audigov",
+      "target": "docs_documentacion_tecnica_mvp_3_l_gica_de_interacci_n_y_m_dulos_core"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L95",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_documentaci_n_t_cnica_mvp_sistema_de_transparencia_audigov",
+      "target": "docs_documentacion_tecnica_mvp_4_flujos_de_trabajo_data_flow"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L112",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_documentaci_n_t_cnica_mvp_sistema_de_transparencia_audigov",
+      "target": "docs_documentacion_tecnica_mvp_5_experiencia_de_usuario_ux_y_animaciones"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_1_arquitectura_y_tecnolog_as_base",
+      "target": "docs_documentacion_tecnica_mvp_stack_tecnol_gico"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_1_arquitectura_y_tecnolog_as_base",
+      "target": "docs_documentacion_tecnica_mvp_justificaci_n_de_tecnolog_as"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L28",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_2_estructura_del_proyecto",
+      "target": "docs_documentacion_tecnica_mvp_codeblock_1"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L60",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_2_estructura_del_proyecto",
+      "target": "docs_documentacion_tecnica_mvp_el_archivo_config_js_y_env"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L67",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_3_l_gica_de_interacci_n_y_m_dulos_core",
+      "target": "docs_documentacion_tecnica_mvp_3_1_conexi_n_de_supabase_supabaseclient_js"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L70",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_3_l_gica_de_interacci_n_y_m_dulos_core",
+      "target": "docs_documentacion_tecnica_mvp_3_2_m_dulo_de_autenticaci_n_y_roles_auth_js"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L76",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_3_l_gica_de_interacci_n_y_m_dulos_core",
+      "target": "docs_documentacion_tecnica_mvp_3_3_l_gica_de_protecci_n_de_interfaz_anti_fouc"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L84",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_3_l_gica_de_interacci_n_y_m_dulos_core",
+      "target": "docs_documentacion_tecnica_mvp_3_4_motor_de_integridad_y_hashes_hash_js"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L90",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_3_l_gica_de_interacci_n_y_m_dulos_core",
+      "target": "docs_documentacion_tecnica_mvp_3_5_trazabilidad_y_auditor_a_auditoria_js"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L97",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_4_flujos_de_trabajo_data_flow",
+      "target": "docs_documentacion_tecnica_mvp_flujo_de_subida_de_contratos"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L105",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_4_flujos_de_trabajo_data_flow",
+      "target": "docs_documentacion_tecnica_mvp_flujo_de_consulta_p_blica_ciudadanos"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L116",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_5_experiencia_de_usuario_ux_y_animaciones",
+      "target": "docs_documentacion_tecnica_mvp_sistema_de_navegaci_n_transitions_js"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L124",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_5_experiencia_de_usuario_ux_y_animaciones",
+      "target": "docs_documentacion_tecnica_mvp_esqueletos_de_carga_skeleton_loading"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Documentacion_Tecnica_MVP.md",
+      "source_location": "L127",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_documentacion_tecnica_mvp_5_experiencia_de_usuario_ux_y_animaciones",
+      "target": "docs_documentacion_tecnica_mvp_microinteracciones"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Plan_Auditorias.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "licitaciones_mvp_docs_plan_auditorias_md",
+      "target": "docs_plan_auditorias_plan_de_acci_n_finalizaci_n_del_sistema_de_auditor_a_inmutable"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Plan_Auditorias.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_plan_auditorias_plan_de_acci_n_finalizaci_n_del_sistema_de_auditor_a_inmutable",
+      "target": "docs_plan_auditorias_fase_1_completar_la_cobertura_de_eventos_de_trazabilidad"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Plan_Auditorias.md",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_plan_auditorias_plan_de_acci_n_finalizaci_n_del_sistema_de_auditor_a_inmutable",
+      "target": "docs_plan_auditorias_fase_2_implementaci_n_del_panel_global_de_auditor_a_rol_admin"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Plan_Auditorias.md",
+      "source_location": "L28",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_plan_auditorias_plan_de_acci_n_finalizaci_n_del_sistema_de_auditor_a_inmutable",
+      "target": "docs_plan_auditorias_fase_3_enriquecimiento_de_la_ui_ux_del_historial"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Plan_Auditorias.md",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_plan_auditorias_plan_de_acci_n_finalizaci_n_del_sistema_de_auditor_a_inmutable",
+      "target": "docs_plan_auditorias_fase_4_blindaje_de_inmutabilidad_en_base_de_datos_seguridad_rls"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "licitaciones-mvp/docs/Plan_Auditorias.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_plan_auditorias_fase_4_blindaje_de_inmutabilidad_en_base_de_datos_seguridad_rls",
+      "target": "docs_plan_auditorias_resumen_de_pr_ximos_pasos_t_cnicos_para_antigravity"
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "29a95b8a7a2ee9cf5e592c667519284e74c90cc2"
+}

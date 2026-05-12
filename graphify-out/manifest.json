@@ -1,0 +1,106 @@
+{
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\a.mjs": {
+    "mtime": 1778128954.265336,
+    "hash": "de16e6d935b57f531b02d668b062a29c"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\b.mjs": {
+    "mtime": 1778128954.2668438,
+    "hash": "3d545728715e13edc315a03c507efb56"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\docs\\rls_auditoria.sql": {
+    "mtime": 1778544299.1486557,
+    "hash": "2665e091a8ce26d9515ae323f49cf121"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\docs\\rls_perfiles.sql": {
+    "mtime": 1778550890.7930548,
+    "hash": "a587122b1d11205fa056c2c542842539"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\js\\auditoria.js": {
+    "mtime": 1778552813.8541915,
+    "hash": "c6374ce6f1b5db769cbe296f213cadc4"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\js\\auth.js": {
+    "mtime": 1778120071.2515361,
+    "hash": "5cc1c5f5ddb7f51f2f1cb617e4f50a19"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\js\\config.js": {
+    "mtime": 1778102621.8234255,
+    "hash": "3732c134d99eefadb4603aa09ef8dca6"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\js\\contratos.js": {
+    "mtime": 1778112212.6271024,
+    "hash": "8103ac5ad5668999861706656df9e0a3"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\js\\hash.js": {
+    "mtime": 1778094122.3024085,
+    "hash": "ba859bb0e1f75ec361d65e0ede21355d"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\js\\supabaseClient.js": {
+    "mtime": 1778094040.6311512,
+    "hash": "f193e86ab71acc6df3cfd0058d8a26c1"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\js\\transitions.js": {
+    "mtime": 1778124262.702651,
+    "hash": "d19a8edd2d9ae1f332da67f02111f643"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\README.md": {
+    "mtime": 1778097801.8742373,
+    "hash": "f537cf47ddac555d223b5e5a7978ade3"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\docs\\arquitectura.md": {
+    "mtime": 1778097507.707546,
+    "hash": "af6840c1702d641888298bdaab33c9a6"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\docs\\Documentacion_Tecnica_MVP.md": {
+    "mtime": 1778130529.034507,
+    "hash": "cd50f88671e45707ecd191fd56aa06fd"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\docs\\Plan_Auditorias.md": {
+    "mtime": 1778542765.8800297,
+    "hash": "5de76de095fb07a71fa8ce76a0c1981e"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\index.html": {
+    "mtime": 1778124511.3245835,
+    "hash": "08e2a678a94642c1f54f445424d7d91c"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\pages\\admin.html": {
+    "mtime": 1778544245.494959,
+    "hash": "032a4e4c8ddf9cf2597b2f4b3b8680e8"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\pages\\auditoria_global.html": {
+    "mtime": 1778550052.2572517,
+    "hash": "734251458e96ba75a7528e3080c87bac"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\pages\\contratos.html": {
+    "mtime": 1778129772.1628072,
+    "hash": "d4af9b7eed1dc6c3cb6dcdbd2b5f8c86"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\pages\\dashboard.html": {
+    "mtime": 1778129761.5645351,
+    "hash": "de44155de049e1c79ef9faa78fe717ce"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\pages\\detalle.html": {
+    "mtime": 1778550043.1798928,
+    "hash": "20462392d9d59c8ad3b10456b4a454df"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\pages\\index.html": {
+    "mtime": 1778094130.357821,
+    "hash": "633351c87e8d1443b6b02600a9c96dab"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\pages\\login.html": {
+    "mtime": 1778124197.0345495,
+    "hash": "6656c9d0415f1e0021cb988acf3e6710"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\pages\\register.html": {
+    "mtime": 1778101730.7872143,
+    "hash": "de16f4d0e1add37a16c7e76896841126"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\pages\\subir.html": {
+    "mtime": 1778129783.1166692,
+    "hash": "f06e92e1758f99aa1b20ce9bd7ff4158"
+  },
+  "C:\\Users\\Victus\\Desktop\\proyectos\\AudiGov\\licitaciones-mvp\\frontend\\assets\\logo.png": {
+    "mtime": 1778097522.2363687,
+    "hash": "91e42db1c66c0b276abf6234dc50b2eb"
+  }
+}
